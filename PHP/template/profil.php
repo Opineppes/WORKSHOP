@@ -46,6 +46,37 @@
     <hr/>
     <h1> Posts récents de <?php echo $infos['prenom'] . " " . $infos['nom']; ?> </h1>
     <hr/>
+
+	<?php 
+	$listArticles =$table_article ->getAllByUser (array("email"=>$infos['email']));
+	if(count($listArticles)!=0)
+	{
+		foreach($listArticles as $id=>$article)
+		{
+
+			var_dump($article);
+
+			echo '
+			<div class="card w-95">
+				<div class="card-body">
+					<h3 class="class-title text-center">''</h3>
+					<hr>
+					<p class="card-text">Va manger teubidélice</p>
+					<a href="#" class="btn btn-primary">Informations</a>
+				</div>
+				<div class="card-footer">
+					<p class="card-text">Auteur date</p>
+				</div>
+			</div>
+			<hr/>
+			';
+
+		}
+	} else {
+		echo 'Aucun article publié récemment';
+	}
+	?>
+
     <div class="card w-95">
 		<div class="card-body">
 			<h3 class="class-title text-center">Nomnom</h3>
