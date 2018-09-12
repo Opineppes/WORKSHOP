@@ -1,6 +1,7 @@
-========PHP=======
+﻿========PHP=======
 
 Global:
+	pouvoir commenter les articles
 
 Rubriques:
 	automatiser l'affichage des annonces
