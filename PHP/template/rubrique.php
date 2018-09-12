@@ -9,7 +9,7 @@ $rubrique = $table_rubrique->selectOne(array("nomRubrique"=>$_GET['rubrique']));
         <h1> <?php  echo $rubrique['nomRubrique'] ;  ?> </h1>
     </div>
     <div class="col-auto">
-        <?php echo '<img src=" ' . $rubrique['image'] . ' " style="max-width:100px" alt="image_rubrique">'; ?>
+        <?php echo '<img src=" '.$baseWebPath . $rubrique['image'] . ' " style="max-width:100px" alt="image_rubrique">'; ?>
     </div>
 </div>
 <hr>
@@ -60,7 +60,7 @@ if(count($listArticles)!=0)
              '      <h3 class="class-title text-center"> ' . $article['titre'] . ' </h3>'.
              '      <hr>'.
              '      <p class="card-text"> ' . $article['infos'] . ' </p>'.
-             '      <a href="#" class="btn btn-primary">Informations</a>'.
+             '      <a href="'.$baseWebPath.'?page=annonce&annonce='. $article['id'] .'" class="btn btn-primary">Informations</a>'.
              '   </div>'.
              '   <div class="card-footer">'.
              '      <p class="card-text"> Posté par ' . $utilisateur['prenom'] . ', le ' . $article['dateInscriptionFormatee'] . ' </p>'.

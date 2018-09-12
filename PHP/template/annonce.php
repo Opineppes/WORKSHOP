@@ -1,50 +1,85 @@
+<?php
+
+$article = $table_article->selectOne(array("id"=>$_GET['annonce']));
+$rubrique = $table_rubrique->selectOne(array("nomRubrique"=>$article['nomRubrique']));
+$utilisateur = $table_utilisateur->selectOne(array("email"=>$article['emailUtilisateur']));
+$listeCommentaire = $table_commentaire->selectAllByArticle(array("idArticle"=>$article['id']));
+
+?>
+
 <div class="row align-items-center">
     <div class="col-auto mr-auto">
-        <h1> [Titre annonce] </h1>
+        <h1> <?php echo $article['titre']  ?> </h1>
     </div>
     <div class="col-auto">
-        <img src="img/allocampus.png" style="max-width:100px" alt="image_rubrique"> 
+        <?php echo '<img src=" '.$baseWebPath.  $rubrique['image'] . ' " style="max-width:100px" alt="image_rubrique">';?>
     </div>
 </div>
 
 <hr/>
 
+<?php
+echo '
 <div>
-    <h5> Posté le 00/00/2018 par [prenom + nom]</h5>
-    <p>Lorem ipsum dolor sit amet, sea amet tantas forensibus at. Sit nonumy blandit probatus no. Aeque disputationi interpretaris quo ne, nec ad consul adversarium, deserunt honestatis scriptorem vis te. Ferri laoreet suscipiantur vel ei, eum cu urbanitas complectitur, ex cum debitis invidunt insolens.
-    </p>
-</div>
-
+    <h5> Posté par ' . $utilisateur['prenom'] . ' ' . $utilisateur['nom'] . ' en ' . $utilisateur['annee'] . ', le ' . $article['dateInscriptionFormatee'] . '  </h5>
+    <p>' . $article['infos'] . ' </p>
+</div>';
+?>
 <div>
     <h3>Commentaires</h3>
     <hr>
     <form action="">
         <div class="card ">
-            <div class="card-body input-group">
+            <div class="input-group">
                 <input type="text" class="form-control mb" name="" id="">
-                <button class="btn btn-primary">Commenter</button>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-dark">Commenter</button>
+                </div>
             </div> 
         </div>
     </form>
     <hr>
-    <div class="card">
-        <div class="card-body row align-items-center">
-           <div class="col-auto">
-                <img src="img/allocampus.png" style="max-width:50px" alt="image_utilisateur"> 
-            </div>
-            <div class="col-auto mr-auto ">
-                <h6 class="card-title">Nom de l'envoyeur</h6>
-            </div>
-            
-            <div>
-                <hr>
-                <p class="card-text ">Lorem ipsum dolor sit amet, sea amet tantas forensibus at. Sit nonumy blandit probatus no. Aeque disputationi interpretaris quo ne, nec ad consul adversarium, deserunt honestatis scriptorem vis te. Ferri laoreet suscipiantur vel ei, eum cu urbanitas complectitur, ex cum debitis invidunt insolens.</p>
-            </div>
-        </div> 
-        <div class="card-footer">
-            <p class="card-text">Heured'envoi</p>
-        </div>
-    </div>
+
+    <?php
+
+    if(count($listeCommentaire)!=0)
+    {
+        foreach($listeCommentaire as $id=>$commentaire)
+        {
+
+            $utilisateurCom = $table_utilisateur->selectOne(array("email"=>$commentaire['emailUtilisateur']));
+
+            echo'<div class="card">'.
+                '   <div class="card-header">'.
+                '       <div class="row align-items-center">'.
+                '           <div class="col-md-1">'.
+                '               <center><img src="' .$baseWebPath. $utilisateurCom['image'] . '"  class="rounded-circle" width="50" height="50" alt="image_utilisateur"/></center>'.
+                '           </div>'.
+                '           <div class="col-md-11">'.
+                '               <h6>  ' . $utilisateurCom['prenom'] . ' ' . $utilisateurCom['nom'] . ', ' . $utilisateurCom['annee'] . '  </h6>'.
+                '           </div>'.
+                '       </div>'.
+                '   </div> '.
+                '   <div class="card-body">'.
+                '       <p class="card-text ">  ' . $commentaire['contenu'] . '</p>'.
+                '   </div>'.
+                '    <div class="card-footer">'.
+                '        <p class="card-text"> ' . $commentaire['dateCommFormatee'] . '</p>'.
+                '    </div>'.
+                '</div>'.
+                '<br/>';
+
+        }
+
+    } else {
+
+        echo 'Aucun commentaire';
+
+    }
+
+    ?>
+
+
 </div>
 
 
