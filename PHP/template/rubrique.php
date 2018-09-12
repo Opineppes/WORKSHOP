@@ -53,6 +53,8 @@ if(count($listArticles)!=0)
 	foreach($listArticles as $id=>$article)
 	{
 
+        $utilisateur = $table_utilisateur->selectOne(array("email"=>$article['emailUtilisateur']));
+
         echo '<div class="card">'.
              '   <div class="card-body">'.
              '      <h3 class="class-title text-center"> ' . $article['titre'] . ' </h3>'.
@@ -61,7 +63,7 @@ if(count($listArticles)!=0)
              '      <a href="#" class="btn btn-primary">Informations</a>'.
              '   </div>'.
              '   <div class="card-footer">'.
-             '      <p class="card-text"> Posté par ' . $infos['prenom'] . ', le ' . $article['dateInscriptionFormatee'] . ' </p>'.
+             '      <p class="card-text"> Posté par ' . $utilisateur['prenom'] . ', le ' . $article['dateInscriptionFormatee'] . ' </p>'.
              '   </div>'.
              '</div>'.
              '<br>';

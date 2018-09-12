@@ -9,7 +9,7 @@ class TableArticle extends Table {
 	{
 		parent::__construct("article" ,array("id"), array("titre", "dateCreation", "infos","emailUtilisateur","nomRubrique"));
 		$this->_getAllByUser = "SELECT *, DATE_FORMAT(dateCreation, '%d %M %Y') AS dateInscriptionFormatee FROM article WHERE emailUtilisateur = :emailUtilisateur ORDER BY dateCreation DESC";
-		$this->_getAllByRubrique = "SELECT * FROM article WHERE nomRubrique = :nomRubrique";
+		$this->_getAllByRubrique = "SELECT *, DATE_FORMAT(dateCreation, '%d %M %Y') AS dateInscriptionFormatee  FROM article WHERE nomRubrique = :nomRubrique ORDER BY dateCreation DESC";
 	}
 
 	public function getAllByUser($args) {
