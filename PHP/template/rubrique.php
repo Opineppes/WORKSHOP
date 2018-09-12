@@ -1,9 +1,15 @@
+<?php
+
+$rubrique = $table_rubrique->selectOne(array("nomRubrique"=>$_GET['rubrique']));
+
+?>
+
 <div class="row align-items-center">
     <div class="col-auto mr-auto">
-        <h1>Rubrique</h1>
+        <h1> <?php  echo $rubrique['nomRubrique'] ;  ?> </h1>
     </div>
     <div class="col-auto">
-        <img src="img/allocampus.png" style="max-width:100px" alt="image_rubrique">
+        <?php echo '<img src=" ' . $rubrique['image'] . ' " style="max-width:100px" alt="image_rubrique">'; ?>
     </div>
 </div>
 <hr>
@@ -37,26 +43,32 @@
     </div>
 </div>
 <hr>
-<div class="card">
-    <div class="card-body">
-        <h3 class="class-title text-center">Nomnom</h3>
-        <hr>
-        <p class="card-text">Va manger resto</p>
-        <a href="#" class="btn btn-primary">Informations</a>
-    </div>
-    <div class="card-footer">
-         <p class="card-text">Auteur 01/01/2000</p>
-    </div>
-</div>
-<br>
-<div class="card">
-    <div class="card-body">
-        <h3 class="class-title text-center">Mc do</h3>
-        <hr>
-        <p class="card-text">sortie au mcdo</p>
-        <a href="#" class="btn btn-primary">Informations</a>
-    </div>
-    <div class="card-footer">
-        <p class="card-text">Auteur 01/01/2000</p>
-    </div>
-</div>
+
+<?php
+
+
+$listArticles =$table_article ->getAllByRubrique (array("nomRubrique"=>$rubrique['nomRubrique']));
+if(count($listArticles)!=0)
+{
+	foreach($listArticles as $id=>$article)
+	{
+
+        echo '<div class="card">'.
+             '   <div class="card-body">'.
+             '      <h3 class="class-title text-center"> ' . $article['titre'] . ' </h3>'.
+             '      <hr>'.
+             '      <p class="card-text"> ' . $article['infos'] . ' </p>'.
+             '      <a href="#" class="btn btn-primary">Informations</a>'.
+             '   </div>'.
+             '   <div class="card-footer">'.
+             '      <p class="card-text"> Posté par ' . $infos['prenom'] . ', le ' . $article['dateInscriptionFormatee'] . ' </p>'.
+             '   </div>'.
+             '</div>'.
+             '<br>';
+
+	}
+} else {
+	echo 'Aucun article publié récemment';
+}
+
+?>
