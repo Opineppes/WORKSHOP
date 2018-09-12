@@ -56,20 +56,18 @@
 
 			var_dump($article);
 
-			echo '
-			<div class="card w-95">
-				<div class="card-body">
-					<h3 class="class-title text-center">''</h3>
-					<hr>
-					<p class="card-text">Va manger teubidélice</p>
-					<a href="#" class="btn btn-primary">Informations</a>
-				</div>
-				<div class="card-footer">
-					<p class="card-text">Auteur date</p>
-				</div>
-			</div>
-			<hr/>
-			';
+			echo '<div class="card w-95">'.
+				 '	<div class="card-body">'.
+				 '		<h3 class="class-title text-center"></h3>'.
+				 '		<hr>'.
+				 '		<p class="card-text">Va manger teubidélice</p>'.
+				 '		<a href="#" class="btn btn-primary">Informations</a>'.
+				 '	</div>'.
+				 '	<div class="card-footer">'.
+				 '		<p class="card-text">Auteur date</p>'.
+				 '	</div>'.
+				 '</div>'.
+				 '<hr/>';
 
 		}
 	} else {
