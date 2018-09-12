@@ -66,7 +66,7 @@
 						<input type="text" class="form-control bxs-dark" id="email-connexion" placeholder="exemple@exemple.com" required>
 					</div>
 					<div class="form-group">
-						<label for="mot-de-passe-connexion">Password</label>
+						<label for="mot-de-passe-connexion">Mot de passe</label>
 						<input type="password" class="form-control bxs-dark" id="mot-de-passe-connexion" placeholder="Mot de passe" required>
 					</div>
 				</div>
@@ -95,11 +95,11 @@
 						<input type="email" class="form-control bxs-dark" id="email" placeholder="Exemple@exemple.com" required>
 					</div>
 					<div class="form-group">
-						<label for="mot-de-passe">Password</label>
+						<label for="mot-de-passe">Mot de passe</label>
 						<input type="password" class="form-control bxs-dark" id="mot-de-passe" placeholder="Mot de passe" required>
 					</div>
 					<div class="form-group">
-						<label for="valide-mot-de-passe">Validation password</label>
+						<label for="valide-mot-de-passe">Validation du mot de passe</label>
 						<input type="password" class="form-control bxs-dark" id="valide-mot-de-passe" placeholder="Mot de passe" required>
 					</div>
 					<div class="form-group">
