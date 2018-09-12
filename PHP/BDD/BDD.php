@@ -9,7 +9,7 @@
 		private static $bd;
 
 		public static function connectBDD() {
-			BDD::$bd = new PDO('mysql:host='.BDD::$adresseBDD.';dbname='.BDD::$nomBDD.';', BDD::$utilisateurBDD, BDD::$motdepasseBDD);
+			BDD::$bd = new PDO('mysql:host='.BDD::$adresseBDD.';dbname='.BDD::$nomBDD.';', BDD::$utilisateurBDD);
 			if(BDD::$bd != NULL)
 				return true;
 			return false;

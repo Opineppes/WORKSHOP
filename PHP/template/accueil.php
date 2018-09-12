@@ -10,7 +10,7 @@
 			 "<p class=\"card-text\">". $rubrique["description"] ."</p>".
 			 "</div>".
 			 "<div class=\"card-footer\">".
-			 "<a href=". $baseWebPath ."\"/?page=rubrique&rubrique=". $rubrique["nomRubrique"] ."\" class=\"btn btn-sm btn-outline-dark\" style=\"width: 100%\">Visiter</a>".
+			 "<a href=\"". $baseWebPath ."?page=rubrique&rubrique=". $rubrique["nomRubrique"] ."\" class=\"btn btn-sm btn-outline-dark\" style=\"width: 100%\">Visiter</a>".
 			 "</div>".
 			 "</div>";
 	}

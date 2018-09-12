@@ -1,6 +1,6 @@
 .background-image {
 	position: fixed;
-	background-image: url('/img/background.jpg');
+	background-image: url('../img/background.jpg');
 	background-repeat: no-repeat;
 	background-size: 100%;
 	top: 0px;
