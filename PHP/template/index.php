@@ -17,20 +17,25 @@
 		<header>
 <?php 
 	include('/PHP/template/header.php');
-	
-	if(isset($_SESSION['error'])) {
-		include("/PHP/template/error_modal.php");
-		unset($_SESSION['error']);
-	}
+	include("/PHP/template/error_modal.php");
 ?>
 		</header>
 		
 		<div class="container" id="page-content">
 <?php include('/PHP/template/'. $page .".php"); ?>
 		</div>
-	
+
 		<script type="text/javascript" src="/js/jquery.js"></script>
 		<script type="text/javascript" src="/js/bootstrap.js"></script>
 		<script type="text/javascript" src="/js/script.js"></script>
+<?php 	
+	if(isset($_SESSION['error'])) {
+		echo "<script>".
+			 "	$(\"#error-message\").html(\"". str_replace("\"", "\\\"", $_SESSION['error']) ."\");".
+			 "	$(\"#modal-error\").modal(\"show\");".
+			 "</script>";
+		unset($_SESSION['error']);
+	} 
+?>
 	</body>
 </html>

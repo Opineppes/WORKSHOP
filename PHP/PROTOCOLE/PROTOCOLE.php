@@ -3,6 +3,8 @@
 	class PROTOCOLE {
 		
 		public static function chooser() {
+			global $user;
+			
 			if(isset($_POST["protocole"])) {
 				$protocole = $_POST["protocole"];
 				
@@ -14,7 +16,7 @@
 					return PROTOCOLE::proto_deconnexion();
 				} else if($user != null){
 					if($protocole == "modif-avatar") {
-						return proto_modif_image();
+						return PROTOCOLE::proto_modif_image();
 					}
 				}
 			}
@@ -109,13 +111,14 @@
 							
 							$dest_fichier = basename($_POST['email']);
 							$dest_fichier = strtr($dest_fichier,'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ@','AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy_');
+							$dest_fichier = str_replace(".", "_", $dest_fichier);
 							$dest_fichier = preg_replace('/([^.a-z0-9]+)/i', '_', $dest_fichier);
 							
-							move_uploaded_file($_FILES['avatar']['tmp_name'], $dest_dossier . $dest_fichier . '.' . $extension);
+							move_uploaded_file($_FILES['avatar']['tmp_name'], "." . $dest_dossier . $dest_fichier . '.' . $extension);
 							$avatar = $dest_dossier . $dest_fichier . '.' . $extension;
 							$table_utilisateur->update_image(array("email"=>$_POST['email'], "image"=>$avatar));
 							
-							return "{\"result\": true, \"avatar\": ". $avatar . "}";
+							return "{\"result\": true}";
 						}
 					}
 				}

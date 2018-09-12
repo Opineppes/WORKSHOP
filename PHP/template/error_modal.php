@@ -7,8 +7,8 @@
 					<span>&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
-<?php echo $_SESSION['error']; ?>
+			<div class="modal-body" id="error-message">
+
 			</div>
 		</div>
 	</div>

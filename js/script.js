@@ -1,5 +1,3 @@
-$("#modal-error").modal("show");
-
 $("#btn-inscription").click(function(e) {
 	$("#inscription-modal").modal("show");
 	$("#connexion-modal").modal("hide");
@@ -88,16 +86,24 @@ $("#inscription-form").submit(function(e) {
 	});
 });
 
-$("#form-avatar").submit(function(e) {
+$("#avatar").on('change', function(e) {
 	var formData = new FormData($("#form-avatar").get(0));
+	console.log(formData);
 	
-	var result = $.post({
+	$.post({
 		url: "/",
 		data: formData,
 		dataType: 'json',
 		processData: false,
 		contentType: false,
 	}).done(function(res){
-		$('#avatar-img').attr('src', res.result + '?' + Math.floor(Math.random() * Math.floor(1000000000000)));
+		if(res.result != undefined) {
+			if(res.result) {
+				document.location.reload();
+			} else {
+				$("#error-message").html(res.error);
+				$("#modal-error").modal("show");
+			}
+		}
 	});
 });

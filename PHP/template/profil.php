@@ -5,7 +5,6 @@
 			$infos = $table_utilisateur->selectOne(array("email"=>$_GET['profil']));
 		} else {
 			$_SESSION['error'] = "Utilisateur inconue.";
-			echo "<script>document.location = \"/?page=profil\"</script>";
 		}
 	}
 
