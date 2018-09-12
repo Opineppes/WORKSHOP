@@ -8,7 +8,7 @@ class TableArticle extends Table {
 	public function __construct()
 	{
 		parent::__construct("article" ,array("id"), array("titre", "dateCreation", "infos","emailUtilisateur","nomRubrique"));
-		$this->_getAllByUser = "SELECT * FROM article WHERE emailUtilisateur = :emailUtilisateur";
+		$this->_getAllByUser = "SELECT *, DATE_FORMAT(dateCreation, 'Le %d %M %Y') AS dateInscriptionFormatee FROM article WHERE emailUtilisateur = :emailUtilisateur ORDER BY dateCreation DESC";
 		$this->_getAllByRubrique = "SELECT * FROM article WHERE nomRubrique = :nomRubrique";
 	}
 

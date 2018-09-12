@@ -54,17 +54,15 @@
 		foreach($listArticles as $id=>$article)
 		{
 
-			var_dump($article);
-
 			echo '<div class="card w-95">'.
 				 '	<div class="card-body">'.
-				 '		<h3 class="class-title text-center"></h3>'.
+				 '		<h3 class="class-title text-center"> '.$article['titre'].' </h3>'.
 				 '		<hr>'.
-				 '		<p class="card-text">Va manger teubidélice</p>'.
+				 '		<p class="card-text">'.$article['infos'].'</p>'.
 				 '		<a href="#" class="btn btn-primary">Informations</a>'.
 				 '	</div>'.
 				 '	<div class="card-footer">'.
-				 '		<p class="card-text">Auteur date</p>'.
+				 '		<p class="card-text"> Posté par ' . $infos['prenom'] . ', le ' . $article['dateCreation'] . '</p>'.
 				 '	</div>'.
 				 '</div>'.
 				 '<hr/>';
