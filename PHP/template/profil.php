@@ -48,7 +48,7 @@
     <hr/>
 
 	<?php 
-	$listArticles =$table_article ->getAllByUser (array("email"=>$infos['email']));
+	$listArticles =$table_article ->getAllByUser (array("emailUtilisateur"=>$infos['email']));
 	if(count($listArticles)!=0)
 	{
 		foreach($listArticles as $id=>$article)
