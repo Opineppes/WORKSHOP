@@ -1,0 +1,37 @@
+========PHP=======
+
+Global:
+
+Rubriques:
+	automatiser l'affichage des annonces
+	formulaire d'ajout d'une annonce
+	
+Profil:
+	affichage des annonce posté
+	modification du profil
+	suppresion d'annonce
+
+Header:
+
+Protocole:
+	~ajouter la securité de saisie
+
+	modification de profil
+
+	ajout d'annonce
+	modification d'annonce
+	suppression d'annonce
+
+=======SQL========
+
+creation d'une requete pour les annonce propre au rubrique
+creation d'une requete pour les annonce propre au personne
+
+creation d'une requete pour modifier le mot de passe
+creation d'une requete pour modifier l'image - > update_image
+
+
+
+=======HTML========
+
+Header:

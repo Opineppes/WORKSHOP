@@ -1,0 +1,67 @@
+.background-image {
+	position: fixed;
+	background-image: url('/img/background.jpg');
+	background-repeat: no-repeat;
+	background-size: 100%;
+	top: 0px;
+	width: 100%;
+	height: 100vh;
+	filter: blur(10px);
+	z-index: -1000;
+}
+
+#page-content {
+	background-color: #ffffff;
+	margin-top: 170px;
+	margin-bottom: 170px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+.form-control.bxs-dark:focus {
+	box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
+	border-color: #343a40;
+}
+
+#deconnexion {
+	color: #dc3545;
+}
+
+#deconnexion:active {
+	color: white;
+	background-color: #dc3545;
+}
+
+.avatar img {
+	opacity: 1;
+	display: block;
+	height: auto;
+	transition: .5s ease;
+	backface-visibility: hidden;
+	border: 1px grey solid;
+}
+
+.avatar #modif-avatar {
+	transition: .5s ease;
+	opacity: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.avatar:hover {
+	cursor: pointer;
+}
+
+.avatar:hover img {
+	opacity: 0.3;
+}
+
+.avatar:hover #modif-avatar {
+	opacity: 1;
+}

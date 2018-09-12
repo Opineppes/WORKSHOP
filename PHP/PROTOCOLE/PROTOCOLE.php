@@ -1,0 +1,149 @@
+<?php
+
+	class PROTOCOLE {
+		
+		public static function chooser() {
+			if(isset($_POST["protocole"])) {
+				$protocole = $_POST["protocole"];
+				
+				if($protocole == "connexion") {
+					return PROTOCOLE::proto_connexion();
+				} else if($protocole == "inscription") {
+					return PROTOCOLE::proto_inscription();
+				} else if($protocole == "deconnexion") {
+					return PROTOCOLE::proto_deconnexion();
+				} else if($user != null){
+					if($protocole == "modif-avatar") {
+						return proto_modif_image();
+					}
+				}
+			}
+		}
+		
+		public static function proto_deconnexion() {
+			session_destroy();
+			
+			return "{\"result\": true}";
+		}
+		
+		//protocoles
+		public static function proto_connexion() {
+			global $table_utilisateur;
+			
+			if(PROTOCOLE::verif_presence_args($_POST, array("email", "mot_de_passe"))) {
+				if(PROTOCOLE::verif_empty_args($_POST, array("email", "mot_de_passe"))) {
+					
+					if($table_utilisateur->valid(array("email"=>$_POST["email"], "mdp"=>md5($_POST['mot_de_passe'])))) {
+						$_SESSION['connect'] = true;
+						$_SESSION['email'] = $_POST["email"];
+						
+						return "{\"result\": true}";
+					} else {
+						return "{\"result\": false, \"error\": \"Identifiant ou mot de passe incorect.\"}";
+					}
+					
+				} else {
+					return "{\"result\": false, \"error\": \"Certains champs du formulaire sont vide\"}";
+				}
+			} else {
+				return "{\"result\": false, \"error\": \"Une erreur s'est produite.\"}";
+			}
+		}
+		
+		public static function proto_inscription() {
+			global $table_utilisateur;
+			
+			if(PROTOCOLE::verif_presence_args($_POST, array("email", "mot_de_passe", "verif_mot_de_passe", "nom", "prenom", "annee"))) {
+				if(PROTOCOLE::verif_empty_args($_POST, array("email", "mot_de_passe", "verif_mot_de_passe", "nom", "prenom", "annee"))) {
+					
+					if(!$table_utilisateur->exist(array("email"=>$_POST["email"]))) {
+						if(md5($_POST['mot_de_passe']) == md5($_POST['verif_mot_de_passe']) ) {
+							$table_utilisateur->create(array(
+								":email" => $_POST["email"],
+								":mdp" => md5($_POST["mot_de_passe"]),
+								":nom" => $_POST["nom"],
+								":prenom" => $_POST["prenom"],
+								":annee" => $_POST["annee"]
+							));
+							
+							$_SESSION['connect'] = true;
+							$_SESSION['email'] = $_POST["email"];
+							
+							return "{\"result\": true}";
+						} else {
+							return "{\"result\": false, \"error\": \"Les deux mot deux passe ne sont pas identiques.\"}";
+						}
+					} else {
+						return "{\"result\": false, \"error\": \"Email déjà utilisée.\"}";
+					}
+					
+				} else {
+					return "{\"result\": false, \"error\": \"Certains champs du formulaire sont vide\"}";
+				}
+			} else {
+				return "{\"result\": false, \"error\": \"Une erreur s'est produite.\"}";
+			}
+		}
+		
+		public static function proto_modif_image() {
+			global $table_utilisateur;
+			
+			global $user;
+			
+			//avatar: image, email: identifiant
+			if( isset($_FILES['avatar']) and isset($_POST['email']) ) {
+				$extensions_ok = array('png', 'gif', 'jpg', 'jpeg');
+				$taille_max = 5000000;
+				$dest_dossier = '/img/profils/';
+							
+				$nomFile = explode('.', $_FILES['avatar']['name']);
+				$extension = $nomFile[count($nomFile)-1];
+				if( in_array( $extension, $extensions_ok ) )
+				{
+					if( file_exists($_FILES['avatar']['tmp_name']) && (filesize($_FILES['avatar']['tmp_name']))> $taille_max){
+						return "{\"result\": false, \"error\": \"Votre fichier doit faire moins de 500ko.\"}";
+					}
+					else
+					{
+						if($user['email'] == $_POST['email'] or $user['admin'] == "1") {
+							
+							$dest_fichier = basename($_POST['email']);
+							$dest_fichier = strtr($dest_fichier,'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ@','AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy_');
+							$dest_fichier = preg_replace('/([^.a-z0-9]+)/i', '_', $dest_fichier);
+							
+							move_uploaded_file($_FILES['avatar']['tmp_name'], $dest_dossier . $dest_fichier . '.' . $extension);
+							$avatar = $dest_dossier . $dest_fichier . '.' . $extension;
+							$table_utilisateur->update_image(array("email"=>$_POST['email'], "image"=>$avatar));
+							
+							return "{\"result\": true, \"avatar\": ". $avatar . "}";
+						}
+					}
+				}
+			} else {
+				return "{\"result\": false, \"error\": \"Une erreur s'est produite.\"}";
+			}
+		}
+	
+		//outils
+		public static function verif_presence_args($to_verif, $args_need) {
+			$res = true;
+			foreach($args_need as $id=>$arg_need) {
+				if(!isset($to_verif[$arg_need])) {
+					$res = false;
+				}
+			}
+			return $res;
+		}
+		
+		public static function verif_empty_args($to_verif, $args_need) {
+			$res = true;
+			foreach($args_need as $id=>$arg_need) {
+				if(empty($to_verif[$arg_need])) {
+					$res = false;
+				}
+			}
+			return $res;
+		}
+	}
+
+?>
