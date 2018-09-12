@@ -10,7 +10,31 @@
 <div class="d-flex justify-content-center">
     <button class="btn btn-outline-dark w-75" data-toggle="modal" data-target="#rubrique">Ajouter une annonce</button>
 </div>
-<div class="modal fade" id="rubrique" tabindex="-1" role="dialog">
+<div class="modal fade" id="rubrique" tabindex="-1" role="dialog" aria-labelledby="article-modal-title" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <form id="article-form">
+            <div class="modal-header">
+                <h5 class="modal-title">Créer un article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="article-body">
+                <div class="form-group">
+                    <label for="titre">Titre</label>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" aria-label="With textarea"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+				<button type="submit" class="btn btn-outline-info w-50">Confirmer</button>
+			</div>
+        </form>
+        </div>
+    </div>
 </div>
 <hr>
 <div class="card">
