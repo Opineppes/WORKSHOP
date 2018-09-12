@@ -1,7 +1,8 @@
 <?php
+	$baseWebPath = "/";
 
-	require_once("/PHP/BDD/BDD.php");
-	require_once("/PHP/PROTOCOLE/PROTOCOLE.php");
+	require_once($baseWebPath . "PHP/BDD/BDD.php");
+	require_once($baseWebPath . "PHP/PROTOCOLE/PROTOCOLE.php");
 	
 	session_start();
 	
@@ -27,13 +28,13 @@
 		
 		if($page == "accueil") { //utilisateur lambda
 		
-			include_once("/PHP/template/index.php");
+			include_once($baseWebPath . "PHP/template/index.php");
 			exit(0);
 			
 		} else if($page == "rubrique" or $page == "profil" or $page == "annonce") { //utilisateur connecté
 			
 			if($user != null) {
-				include_once("/PHP/template/index.php");
+				include_once($baseWebPath . "PHP/template/index.php");
 				exit(0);
 			} else {
 				$_SESSION['error'] = "Cette page est exclusivement réservé au membres du site, veuillez vous ".
@@ -44,7 +45,7 @@
 				
 		} else if(false) { //admin obligatoire
 			if($user != null and $user['admin'] == "1") {
-				include_once("/PHP/template/index.php");
+				include_once($baseWebPath . "PHP/template/index.php");
 				exit(0);
 			} else {
 				$_SESSION['error'] = "Vous n'avez pas l'autorisation nécessaire pour acceder a cette page.";

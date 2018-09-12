@@ -18,7 +18,7 @@
             <center class="avatar">
 <?php
 	if($_SESSION['email'] == $infos['email'] or $user['admin'] == "1") {
-		echo "<img src=\"" . $infos['image'] . "\" width=\"250\" height=\"250\" alt=\"image_profil\" id=\"avatar-img\"/>".
+		echo "<img src=\"" . $baseWebPath . $infos['image'] . "\" width=\"250\" height=\"250\" alt=\"image_profil\" id=\"avatar-img\"/>".
 			 "<div id=\"modif-avatar\">Modifier</div>".
 			 "<form id=\"form-avatar\">".
 			 "<input type=\"file\" style=\"visibility: hidden;\" name=\"avatar\" id=\"avatar\" accept=\".jpg, .jpeg, .png, .gif\"/>".
@@ -26,7 +26,7 @@
 			 "<input type=\"hidden\" value=\"modif-avatar\" name=\"protocole\"/>".
 			 "</form>";
 	} else {
-		echo "<img src=\"" . $infos['image'] . "\" width=\"250\" height=\"250\" alt=\"image_profil\"/>";
+		echo "<img src=\"" . $baseWebPath . $infos['image'] . "\" width=\"250\" height=\"250\" alt=\"image_profil\"/>";
 	}
 ?>
 			</center>

@@ -1,6 +1,6 @@
 <nav class="navbar fixed-top navbar-expand-md navbar-light fi" style="background-color: #dedfe0;">
-	<a class="navbar-brand" href="/">
-	<img src="/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+	<a class="navbar-brand" href="<?php echo $baseWebPath; ?>">
+	<img src="<?php echo $baseWebPath; ?>img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
 	Campus Life
 	</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,17 +9,17 @@
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
-				<a class="nav-link" href="/">Accueil <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="<?php echo $baseWebPath; ?>">Accueil <span class="sr-only">(current)</span></a>
 			</li>
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="rubriques" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			Rubriques
 			</a>
-			<div class="dropdown-menu align-items-center" aria-labelledby="rubriques">
+			<div class="dropdown-menu" aria-labelledby="rubriques">
 <?php
 
 	foreach($rubriques as $id=>$rubrique) {
-		echo "<a class=\"dropdown-item\" href=\"/?page=rubrique&rubrique=". $rubrique["nomRubrique"] ."\"> <img src=\"" . $rubrique['image'] . "\" width=\"20\" height=\"20\" alt=\"image_rubrique\" />&nbsp;&nbsp;". $rubrique["nomRubrique"] ."</a>";
+		echo "<a class=\"dropdown-item\" href=\"". $baseWebPath ."?page=rubrique&rubrique=". $rubrique["nomRubrique"] ."\"> <img src=\"" . $baseWebPath . $rubrique['image'] . "\" width=\"20\" height=\"20\" alt=\"image_rubrique\" />&nbsp;&nbsp;". $rubrique["nomRubrique"] ."</a>";
 	}
 
 ?>
@@ -35,7 +35,7 @@
 			 "<img src=\"" . $user['image'] . "\" width=\"32\" height=\"32\" class=\"rounded-circle\" />&nbsp;Mon Compte&nbsp;" .
 			 "</a>".
 			 "<div class=\"dropdown-menu\" aria-labelledby=\"rubriques\">".
-			 "<a class=\"dropdown-item\" href=\"/?page=profil\">Profil</a>".
+			 "<a class=\"dropdown-item\" href=\"". $baseWebPath ."?page=profil\">Profil</a>".
 			 "<div class=\"dropdown-divider\"></div>".
 			 "<a class=\"dropdown-item\" id=\"deconnexion\" href=\"#\">Se déconnecter</a>".
 			 "</div>".

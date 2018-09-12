@@ -16,13 +16,13 @@
 		
 		<header>
 <?php 
-	include('/PHP/template/header.php');
-	include("/PHP/template/error_modal.php");
+	include($baseWebPath . "PHP/template/header.php");
+	include($baseWebPath . "PHP/template/error_modal.php");
 ?>
 		</header>
 		
 		<div class="container" id="page-content">
-<?php include('/PHP/template/'. $page .".php"); ?>
+<?php include($baseWebPath . "PHP/template/". $page .".php"); ?>
 		</div>
 
 		<script type="text/javascript" src="/js/jquery.js"></script>

@@ -96,7 +96,7 @@
 			if( isset($_FILES['avatar']) and isset($_POST['email']) ) {
 				$extensions_ok = array('png', 'gif', 'jpg', 'jpeg');
 				$taille_max = 5000000;
-				$dest_dossier = '/img/profils/';
+				$dest_dossier = 'img/profils/';
 							
 				$nomFile = explode('.', $_FILES['avatar']['name']);
 				$extension = $nomFile[count($nomFile)-1];
@@ -114,7 +114,7 @@
 							$dest_fichier = str_replace(".", "_", $dest_fichier);
 							$dest_fichier = preg_replace('/([^.a-z0-9]+)/i', '_', $dest_fichier);
 							
-							move_uploaded_file($_FILES['avatar']['tmp_name'], "." . $dest_dossier . $dest_fichier . '.' . $extension);
+							move_uploaded_file($_FILES['avatar']['tmp_name'], $dest_dossier . $dest_fichier . '.' . $extension);
 							$avatar = $dest_dossier . $dest_fichier . '.' . $extension;
 							$table_utilisateur->update_image(array("email"=>$_POST['email'], "image"=>$avatar));
 							
