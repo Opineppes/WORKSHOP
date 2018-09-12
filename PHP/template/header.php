@@ -15,7 +15,7 @@
 			<a class="nav-link dropdown-toggle" href="#" id="rubriques" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			Rubriques
 			</a>
-			<div class="dropdown-menu" aria-labelledby="rubriques">
+			<div class="dropdown-menu align-items-center" aria-labelledby="rubriques">
 <?php
 
 	foreach($rubriques as $id=>$rubrique) {
