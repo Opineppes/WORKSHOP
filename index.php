@@ -9,6 +9,7 @@
 	
 	$table_rubrique = new TableRubrique();
 	$table_utilisateur = new TableUtilisateur();
+	$table_article = new TableArticle();
 	
 	$user = null;
 	if(isset($_SESSION['connect'])) {
