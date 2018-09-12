@@ -5,7 +5,7 @@ var ancienneValeurs = { //map pour stocker les ancienne valeur du profil et les 
 		promo: ""
 };
 
-var baseWebPath = "/workshopB2/";
+var baseWebPath = "/";
 
 $("#btn-inscription").click(function(e) {
 	$("#inscription-modal").modal("show");
