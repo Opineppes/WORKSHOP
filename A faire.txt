@@ -40,3 +40,4 @@ Header:
 =======BUG========
 
 non connecté : modal ne disparait pas lors de la connexion/inscription depuis une rubrique
+changer "password" en "mot de passe" dans le formulaire de connection/inscritpion
