@@ -7,14 +7,14 @@ Rubriques:
 	formulaire d'ajout d'une annonce
 	
 Profil:
-	affichage des annonce postÈ
+	affichage des annonce postÔøΩ
 	modification du profil
 	suppresion d'annonce
 
 Header:
 
 Protocole:
-	~ajouter la securitÈ de saisie
+	~ajouter la securitÔøΩ de saisie
 
 	modification de profil
 
@@ -35,3 +35,8 @@ creation d'une requete pour modifier l'image - > update_image
 =======HTML========
 
 Header:
+
+
+=======BUG========
+
+non connect√© : modal ne disparait pas lors de la connexion/inscription depuis une rubrique
