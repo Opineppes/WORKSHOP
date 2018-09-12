@@ -11,6 +11,7 @@
 	$table_rubrique = new TableRubrique();
 	$table_utilisateur = new TableUtilisateur();
 	$table_article = new TableArticle();
+	$table_commentaire = new TableCommentaire();
 	
 	$user = null;
 	if(isset($_SESSION['connect'])) {
