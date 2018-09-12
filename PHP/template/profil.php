@@ -62,7 +62,7 @@
 				 '		<a href="#" class="btn btn-primary">Informations</a>'.
 				 '	</div>'.
 				 '	<div class="card-footer">'.
-				 '		<p class="card-text"> Posté par ' . $infos['prenom'] . ', le ' . $article['dateCreation'] . '</p>'.
+				 '		<p class="card-text"> Posté par ' . $infos['prenom'] . ', le ' . $article['dateInscriptionFormatee'] . '</p>'.
 				 '	</div>'.
 				 '</div>'.
 				 '<hr/>';
