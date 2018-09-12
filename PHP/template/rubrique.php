@@ -48,12 +48,14 @@ $rubrique = $table_rubrique->selectOne(array("nomRubrique"=>$_GET['rubrique']));
 
 
 $listArticles =$table_article ->getAllByRubrique (array("nomRubrique"=>$rubrique['nomRubrique']));
+
 if(count($listArticles)!=0)
 {
 	foreach($listArticles as $id=>$article)
 	{
 
         $utilisateur = $table_utilisateur->selectOne(array("email"=>$article['emailUtilisateur']));
+        $listeCommentaire = $table_commentaire ->selectAllByArticle(array("idArticle"=>$article['id']));
 
         echo '<div class="card">'.
              '   <div class="card-body">'.
@@ -63,8 +65,12 @@ if(count($listArticles)!=0)
              '      <a href="'.$baseWebPath.'?page=annonce&annonce='. $article['id'] .'" class="btn btn-primary">Informations</a>'.
              '   </div>'.
              '   <div class="card-footer">'.
-             '      <p class="card-text"> Posté par ' . $utilisateur['prenom'] . ', le ' . $article['dateInscriptionFormatee'] . ' </p>'.
-             '   </div>'.
+             '      <div class="row align-items-center">'.
+             '          <p class="card-text">'.
+             '          <div class="col-auto mr-auto"> Posté par ' . $utilisateur['prenom'] . ', le ' . $article['dateInscriptionFormatee'] . ' </div>'.
+             '          <div class="col-auto"> '; echo count($listeCommentaire); echo ' commentaire(s) </div>'.
+             '          </p>'.
+             '  </div> '.
              '</div>'.
              '<br>';
 

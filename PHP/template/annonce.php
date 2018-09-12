@@ -26,7 +26,10 @@ echo '
 </div>';
 ?>
 <div>
-    <h3>Commentaires</h3>
+    <div class="row align-items-center">
+        <div class="col-auto mr-auto"> <h3 class="d-inline-block">Commentaires</h3> </div>
+        <div class="col-auto"> <?php echo count($listeCommentaire) .' commentaire(s)'; ?> </div>
+    </div>
     <hr>
     <form action="">
         <div class="card ">
