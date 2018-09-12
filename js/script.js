@@ -61,7 +61,7 @@ $("#deconnexion").click(function(e) {
 	} ).done(function(res) {
 		if(res.result != undefined) {
 			if(res.result) {
-				document.location = "/";
+				document.location = baseWebPath;
 			}
 		}
 	});
@@ -81,7 +81,7 @@ $("#connexion-form").submit(function(e) {
 	} ).done(function(res) {
 		if(res.result != undefined) {
 			if(res.result) {
-				document.location = "/";
+				document.location = baseWebPath;
 			} else {
 				$("#connexion-modal").modal("show");
 				$("#error-connexion").remove();
@@ -114,7 +114,7 @@ $("#inscription-form").submit(function(e) {
 	} ).done(function(res) {
 		if(res.result != undefined) {
 			if(res.result) {
-				document.location = "/";
+				document.location = baseWebPath;
 			} else {
 				$("#inscription-modal").modal("show");
 				$("#error-inscription").remove();
