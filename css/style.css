@@ -65,3 +65,7 @@
 .avatar:hover #modif-avatar {
 	opacity: 1;
 }
+
+.lien_profil{
+	cursor: pointer;
+}
