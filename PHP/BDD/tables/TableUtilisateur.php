@@ -10,7 +10,7 @@ class TableUtilisateur extends Table {
 	public function __construct()
 	{
 		parent::__construct("utilisateur" ,array("email"), array("prenom", "nom","annee","admin", "image", "mdp", "campus"));
-		$this->_create = "INSERT INTO utilisateur(email, prenom, nom, annee, mdp) VALUES (:email, :prenom, :nom, :annee, :mdp);";
+		$this->_create = "INSERT INTO utilisateur(email, prenom, nom, annee, mdp, campus) VALUES (:email, :prenom, :nom, :annee, :mdp, :campus);";
 		$this->_update = "UPDATE utilisateur SET prenom = :prenom, nom = :nom, annee = :annee, campus = :campus WHERE email = :email";
 		
 		$this->_exist = "SELECT * FROM utilisateur WHERE email = :email";

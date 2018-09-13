@@ -25,4 +25,3 @@ Protocole:
 =======BUG========
 
 mettre promo du changement de profil en liste déroulante
-ajouter campus à inscription

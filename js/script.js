@@ -120,6 +120,7 @@ $("#inscription-form").submit(function(e) {
 		},
 		dataType: "json"
 	} ).done(function(res) {
+		console.log(res);
 		if(res.result != undefined) {
 			if(res.result) {
 				document.location = baseWebPath;

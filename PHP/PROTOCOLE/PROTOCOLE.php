@@ -62,7 +62,7 @@
 			if(PROTOCOLE::verif_presence_args($_POST, array("email", "mot_de_passe", "verif_mot_de_passe", "nom", "prenom", "annee", "campus"))) {
 				if(PROTOCOLE::verif_empty_args($_POST, array("email", "mot_de_passe", "verif_mot_de_passe", "nom", "prenom", "annee", "campus"))) {
 					
-					if(filter_var($_POST['Email'], FILTER_VALIDATE_EMAIL)) {
+					if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 						
 						if(!$table_utilisateur->exist(array("email"=>$_POST["email"]))) {
 							
