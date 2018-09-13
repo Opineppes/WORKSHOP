@@ -16,6 +16,11 @@ $(".avatar").click(function(e) {
 	$("#avatar").get(0).click();
 });
 
+function onClickLinkError(e) {
+	console.log("e");
+	$("#modal-error").modal("hide");
+}
+
 $("#modifprofil").click(onClicModifProfil);
 
 function onClicModifCancel(e) {
@@ -146,6 +151,7 @@ $("#avatar").on('change', function(e) {
 				document.location.reload();
 			} else {
 				$("#error-message").html(res.error);
+				$(".link-error").click(onClickLinkError);
 				$("#modal-error").modal("show");
 			}
 		}
@@ -173,6 +179,7 @@ $("#modifprofil-form").submit(function(e){
 				document.location.reload();
 			} else {
 				$("#error-message").html(res.error);
+				$(".link-error").click(onClickLinkError);
 				$("#modal-error").modal("show");
 			}
 		}
@@ -199,6 +206,7 @@ $("#modifpasswd-form").submit(function(e){
 				document.location.reload();
 			} else {
 				$("#error-message").html(res.error);
+				$(".link-error").click(onClickLinkError);
 				$("#modal-error").modal("show");
 			}
 		}
