@@ -73,7 +73,7 @@ if(count($listArticles)!=0)
              '          <div class="col-auto"> '; echo count($listeCommentaire); echo ' commentaire(s) </div>'.
              '          </p>'.
              '      </div> '.    
-             '  </div> '.
+             '   </div> '.
              '</div>'.
              '<br>';
 

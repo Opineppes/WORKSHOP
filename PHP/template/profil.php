@@ -61,16 +61,23 @@
 		foreach($listArticles as $id=>$article)
 		{
 
+			$listeCommentaire = $table_commentaire ->selectAllByArticle(array("idArticle"=>$article['id']));
+
 			echo '<div class="card w-95">'.
 				 '	<div class="card-header">'.
 				 '		<h3 class="class-title text-center"> '.$article['titre'].' </h3>'.
 				 '	</div>'.
 				 '	<div class="card-body">'.
 				 '		<p class="card-text">'.$article['infos'].'</p>'.
-				 '		<a href="#" class="btn btn-primary">Informations</a>'.
+				 '		<a href="'.$baseWebPath.'?page=annonce&annonce='. $article['id'] .'" class="btn btn-primary">Informations</a>'.
 				 '	</div>'.
 				 '	<div class="card-footer">'.
-				 '		<p class="card-text"> Posté par ' . $infos['prenom'] . ', le ' . $article['dateInscriptionFormatee'] . '</p>'.
+				 '	<div class="row align-items-center">'.
+				 '          <p class="card-text">'.
+				 '          <div class="col-auto mr-auto"> Posté par ' . $infos['prenom'] . ', le ' . $article['dateInscriptionFormatee'] . ' </div>'.
+				 '          <div class="col-auto"> '; echo count($listeCommentaire); echo ' commentaire(s) </div>'.
+				 '          </p>'.
+				 '       </div>'.
 				 '	</div>'.
 				 '</div>'.
 				 '<hr/>';
