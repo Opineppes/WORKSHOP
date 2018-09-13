@@ -5,6 +5,19 @@ $rubrique = $table_rubrique->selectOne(array("nomRubrique"=>$article['nomRubriqu
 $utilisateur = $table_utilisateur->selectOne(array("email"=>$article['emailUtilisateur']));
 $listeCommentaire = $table_commentaire->selectAllByArticle(array("idArticle"=>$article['id']));
 
+function generateInfos($infos, $rubrique_infos) {
+	$rubrique_infos = json_decode(utf8_encode($rubrique_infos));
+	
+	$res = "<ul>";
+		
+	foreach(json_decode(utf8_encode($infos)) as $id=>$value) {
+		$res .= "<li><strong>". $rubrique_infos->$id .":</strong> ". $value ."</li>";
+	}
+	$res .=	"</ul>";
+	
+	return $res;
+}
+
 ?>
 
 <div class="row align-items-center">
@@ -19,12 +32,11 @@ $listeCommentaire = $table_commentaire->selectAllByArticle(array("idArticle"=>$a
 <hr/>
 
 <?php
-echo '
-<div>
-    <h5> Posté par ' . $utilisateur['prenom'] . ' ' . $utilisateur['nom'] . ' en ' . $utilisateur['annee'] . ', le ' . $article['dateInscriptionFormatee'] . '  </h5>
-    <p>' . $article['infos'] . ' </p>
-</div>';
+echo generateInfos($article['infos'], $rubrique['infos']);
+echo '<p>'. $article['description'] .'</p>';
+echo '<p class="text-right">Posté par ' . $utilisateur['prenom'] . ' ' . $utilisateur['nom'] . ' en ' . $utilisateur['annee'] . ', le ' . $article['dateInscriptionFormatee'] . '</p>';
 ?>
+<hr/>
 <div>
     <div class="row align-items-center">
         <div class="col-auto mr-auto"> <h3 class="d-inline-block">Commentaires</h3> </div>

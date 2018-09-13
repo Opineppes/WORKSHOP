@@ -3,7 +3,6 @@
 Global:
 
 annonces:
-	afficher les informations
 	
 	
 Profil:
