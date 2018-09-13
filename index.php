@@ -1,5 +1,5 @@
 <?php
-	$baseWebPath = "/";
+	$baseWebPath = "/workshopB2/";
 
 	require_once("PHP/BDD/BDD.php");
 	require_once("PHP/PROTOCOLE/PROTOCOLE.php");
