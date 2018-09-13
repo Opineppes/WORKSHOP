@@ -5,7 +5,7 @@ var ancienneValeurs = { //map pour stocker les ancienne valeur du profil et les 
 		campus: ""
 };
 
-var baseWebPath = "/workshopB2/";
+var baseWebPath = "/";
 
 $("#btn-inscription").click(function(e) {
 	$("#inscription-modal").modal("show");
@@ -231,3 +231,54 @@ $("#modifpasswd-form").submit(function(e){
 		}
 	});
 });
+
+$("#article-form").submit(function(e) {
+	e.preventDefault();
+	
+	var infos_article = {};
+	
+	var infos = $("#article-infos .input-group");
+	for(info of infos.toArray()) {
+		var id = info.id;
+		var value = null;
+		
+		var args = id.split("_");
+		if(args[0] == "H") {
+			var h = $("#" + id + " .h").val();
+			var m = $("#" + id + " .m").val();
+			value = h + ":" + m;
+		} else if(args[0] == "D"){
+			var date_iso = new Date($("#" + id + " input").val());
+			value = date_iso.getDate() + "/" + (date_iso.getMonth() + 1) + "/" + date_iso.getFullYear();
+		} else {
+			value = $("#" + id + " input").val();
+		}
+		
+		infos_article[id] = value;
+	}
+	
+	console.log(infos_article);
+	
+	$.post({
+		url: "/",
+		data: {
+			protocole: "ajout-article",
+			titre: $("#titre").val(),
+			description: $("#description").val(),
+			infos: infos_article,
+			rubrique: $("#article-rubrique").val()
+		}//,
+		//dataType: "json"
+	}).done(function(res) {
+		console.log(res);
+		if(res.result != undefined) {
+			if(res.result) {
+				document.location.reload();
+			} else {
+				$("#error-message").html(res.error);
+				$(".link-error").click(onClickLinkError);
+				$("#modal-error").modal("show");
+			}
+		}
+	});
+})

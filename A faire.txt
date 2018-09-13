@@ -16,6 +16,8 @@ Protocole:
 	ajout d'annonce         -quentin
 	modification d'annonce  -quentin
 	suppression d'annonce   -quentin
+	supression d'utilisateur
+
 	enregistrement des commantaire - quentin
 
 =======SQL========
@@ -25,3 +27,4 @@ Protocole:
 =======BUG========
 
 pas de scroll de modal lors de l'inscription depuis une rubrique
+bouton modif profil apparaissent pour un profil qui n'est pas le notre

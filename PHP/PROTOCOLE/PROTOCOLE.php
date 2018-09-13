@@ -21,6 +21,8 @@
 						return PROTOCOLE::proto_modif_profil();
 					} else if($protocole == "modif-passwd") {
 						return PROTOCOLE::proto_modif_passwd();
+					} else if($protocole == "ajout-article") {
+						return PROTOCOLE::proto_ajout_article();
 					}
 				}
 			}
@@ -208,6 +210,33 @@
 					} else {
 						return "{\"result\": false, \"error\": \"Les deux mots de passe ne correspondent pas.\"}";
 					}
+				} else {
+					return "{\"result\": false, \"error\": \"Certains champs du formulaire sont vide\"}";
+				}
+			} else {
+				return "{\"result\": false, \"error\": \"Une erreur s'est produite.\"}";
+			}
+		}
+		
+		public static function proto_ajout_article() {
+			global $table_article;
+			global $user;
+			
+			if(PROTOCOLE::verif_presence_args($_POST, array("titre", "description", "infos", "rubrique"))) {
+				if(PROTOCOLE::verif_empty_args($_POST, array("titre", "description", "infos", "rubrique"))) {
+					date_default_timezone_set("Europe/Paris");
+
+					$table_article->create(array(
+						"dateCreation"=>strftime("%Y-%m-%d"),
+						"infos"=>json_encode($_POST['infos']),
+						"emailUtilisateur"=>$user['email'],
+						"nomRubrique"=>$_POST['rubrique'],
+						"titre"=>$_POST['titre'],
+						"description"=>$_POST['description']
+					));
+					
+					return "{\"result\": true}";
+					
 				} else {
 					return "{\"result\": false, \"error\": \"Certains champs du formulaire sont vide\"}";
 				}

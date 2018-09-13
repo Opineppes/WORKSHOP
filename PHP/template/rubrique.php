@@ -4,48 +4,49 @@ $rubrique = $table_rubrique->selectOne(array("nomRubrique"=>$_GET['rubrique']));
 
 
 function generateForm($infos) {
-	$res = "<div id=\"form-rubrique\">";
+	$res = "<div id=\"article-infos\">";
 		
 	foreach(json_decode(utf8_encode($infos)) as $id=>$label) {
 		$args = explode("_", $id);
 		
 		switch($args[0]) {
 			case "D":
-				$res .= "<div class=\"input-group\">".
-						"<div class=\"input-group-prepend\">".
-						"<span class=\"input-group-text\">". $label ."</span>".
+				$res .= "<div class=\"input-group\" id=\"". $id ."\">".
+						"<div class=\"input-group-prepend\" style=\"width: 180px;\">".
+						"<span class=\"input-group-text w-100\">". $label ."</span>".
 						"</div>".
-						"<input type=\"date\" class=\"form-control bxs-dark\" id=\"". $args[1] ."\"/>".
+						"<input type=\"date\" class=\"form-control bxs-dark\" required/>".
 						"</div>";
 				break;
-			case "@":
-				$res .= "<div class=\"input-group\">".
-						"<div class=\"input-group-prepend\">".
-						"<span class=\"input-group-text\">". $label ."</span>".
+			case "A":
+				$res .= "<div class=\"input-group\" id=\"". $id ."\">".
+						"<div class=\"input-group-prepend\" style=\"width: 180px;\">".
+						"<span class=\"input-group-text w-100\" >". $label ."</span>".
 						"</div>".
-						"<input type=\"text\" placeholder=\"23 Rue du Dépot, 62000 Arras\" class=\"form-control bxs-dark\" id=\"". $args[1] ."\"/>".
+						"<input type=\"text\" placeholder=\"23 Rue du Dépot, 62000 Arras\" class=\"form-control bxs-dark\" required/>".
 						"</div>";
 				break;
 			case "H":
-				$res .= "<div class=\"input-group\">".
-						"<div class=\"input-group-prepend\">".
-						"<span class=\"input-group-text\">". $label ."</span>".
+				$res .= "<div class=\"input-group\" id=\"". $id ."\">".
+						"<div class=\"input-group-prepend\" style=\"width: 180px;\">".
+						"<span class=\"input-group-text w-100\">". $label ."</span>".
 						"</div>".
-						"<input id=\"h-".$args[1]."\" type=\"number\" class=\"form-control bxs-dark\" min=\"0\" max=\"23\"  value=\"12\"/><input id=\"m-".$args[1]."\" type=\"number\" class=\"form-control bxs-dark\" min=\"0\" max=\"59\" value=\"00\"/>".
+						"<input type=\"number\" class=\"form-control bxs-dark h\" min=\"0\" max=\"23\" value=\"12\" required/>".
+						"<input type=\"number\" class=\"form-control bxs-dark m\" min=\"0\" max=\"59\" value=\"00\" required/>".
 						"</div>";
 				break;
 			case "S":
-				$res .= "<div class=\"input-group\">".
-						"<div class=\"input-group-prepend\">".
-						"<span class=\"input-group-text\">". $label ."</span>".
+				$res .= "<div class=\"input-group\" id=\"". $id ."\">".
+						"<div class=\"input-group-prepend\" style=\"width: 180px;\">".
+						"<span class=\"input-group-text w-100\">". $label ."</span>".
 						"</div>".
-						"<input type=\"text\" placeholder=\"texte\"class=\"form-control bxs-dark\" id=\"". $args[1] ."\"/>".
+						"<input type=\"text\" placeholder=\"texte\"class=\"form-control bxs-dark\" required/>".
 						"</div>";
 				break;
 		}
 		$res .= "<br/>";
 	}
-	$res .= "</div>";
+	$res .=	"</div>";
 	
 	return $res;
 }
@@ -89,7 +90,16 @@ function generateForm($infos) {
                 </button>
             </div>
             <div class="modal-body" id="article-body">
+				<input type="hidden" value="<?php echo $rubrique['nomRubrique']; ?>" id="article-rubrique"/>
+				<div class="form-group">
+					<label for="titre">Titre</label>
+					<input type="text" class="form-control bxs-dark" id="titre" placeholder="Titre" required>
+				</div>
 <?php echo generateForm($rubrique['infos']) ?>
+				<div class="form-group">
+					<label for="description">Description</label>
+					<textarea class="form-control bxs-dark" id="description" required></textarea>
+				</div>
             </div>
             <div class="modal-footer">
 				<button type="submit" class="btn btn-outline-info w-50">Confirmer</button>
