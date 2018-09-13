@@ -191,7 +191,7 @@
 					
 					if($passwd == $confpasswd) 
 					{
-						if($user['admin'] == "0" and isset($_POST['lastpasswd'])) {
+						if($user['admin'] == "0" and isset($_POST['lastpasswd']) and $user['email'] == $_POST['email']) {
 							if($table_utilisateur->valid(array("email"=>$_POST['email'], "mdp"=>md5($_POST['lastpasswd'])))) {
 								$table_utilisateur->update_passwd(array("email"=>$_POST['email'], "mdp"=>$passwd ));
 								return "{\"result\": true}";

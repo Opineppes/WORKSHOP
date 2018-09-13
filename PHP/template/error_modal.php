@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-error" tabindex="-1">
+<div class="modal fade" id="modal-error" style="z-index: 10000;" tabindex="-1">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">

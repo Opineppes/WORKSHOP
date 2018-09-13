@@ -1,5 +1,5 @@
 <?php
-	$baseWebPath = "/workshopB2/";
+	$baseWebPath = "/";
 
 	require_once("PHP/BDD/BDD.php");
 	require_once("PHP/PROTOCOLE/PROTOCOLE.php");
@@ -31,7 +31,7 @@
 			include_once("PHP/template/index.php");
 			exit(0);
 			
-		} else if($page == "rubrique" or $page == "profil" or $page == "annonce") { //utilisateur connecté
+		} else if($page == "rubrique" or $page == "profil" or $page == "annonce" or $page == "utilisateurs") { //utilisateur connecté
 			
 			if($user != null) {
 				// gestion des erreur en rapport au element necessaire au pages
