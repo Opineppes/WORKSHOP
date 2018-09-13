@@ -23,5 +23,3 @@ Protocole:
 =======HTML========
 
 =======BUG========
-
-mettre promo du changement de profil en liste déroulante

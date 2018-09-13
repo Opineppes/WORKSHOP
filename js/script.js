@@ -50,8 +50,25 @@ function onClicModifProfil(e) {
 	
 	$("#profil-Nom").html("<input type=\"text\" class=\"form-control\" value=\"" + ancienneValeurs.nom + "\" />");
 	$("#profil-Prenom").html("<input type=\"text\" class=\"form-control\" value=\"" + ancienneValeurs.prenom + "\" />");
-	$("#profil-Promo").html("<input type=\"text\" class=\"form-control\" value=\"" + ancienneValeurs.promo + "\" />");
-	$("#profil-Campus").html("<input type=\"text\" class=\"form-control\" value=\"" + ancienneValeurs.campus + "\" />");
+	$("#profil-Promo").html(
+		"<select class=\"form-control\">"+
+		"	<option value=\"B1\">B1</option>"+
+		"	<option value=\"B2\">B2</option>"+
+		"	<option value=\"B3\">B3</option>"+
+		"	<option value=\"I5\">I4</option>"+
+		"	<option value=\"I4\">I5</option>"+
+		"</select>"
+	);
+	$("#profil-Campus").html(
+		"<select class=\"form-control\">"+
+		"	<option value=\"Arras\">Arras</option>"+
+		"	<option value=\"Lille\">Lille</option>"+
+		"</select>"
+	);
+	
+	$("#profil-Promo select").val(ancienneValeurs.promo);
+	$("#profil-Campus select").val(ancienneValeurs.campus);
+	
 	
 	$("#button-cancel").click(onClicModifCancel);
 }
@@ -170,8 +187,8 @@ $("#modifprofil-form").submit(function(e){
 			email: $("#profil-Email").html(),
 			nom: $("#profil-Nom input").val(),
 			prenom: $("#profil-Prenom input").val(), 
-			promo: $("#profil-Promo input").val(),
-			campus: $("#profil-Campus input").val()
+			promo: $("#profil-Promo select").val(),
+			campus: $("#profil-Campus select").val()
 		},
 		dataType: "json"
 	}).done(function(res) {
