@@ -1,8 +1,8 @@
 var ancienneValeurs = { //map pour stocker les ancienne valeur du profil et les reafficher corectement
 		nom: "",
 		prenom: "",
-		email: "",
-		promo: ""
+		promo: "",
+		campus: ""
 };
 
 var baseWebPath = "/";
@@ -16,37 +16,39 @@ $(".avatar").click(function(e) {
 	$("#avatar").get(0).click();
 });
 
-function onClicModifProfil(e) {
-	$("#control-modifprofil").html("<h6 class=\"text-left\">Commande Utilisateur:</h6>"
-								 + "<div class=\"btn-group\" role=\"group\">"
-								 + "	<button type=\"submit\" class=\"btn btn-primary\" id=\"button-save\">Sauvegarder</button>"
-								 + "	<button class=\"btn btn-secondary\" id=\"button-cancel\">Annuler</button>"
-								 + "</div>");
-
-	ancienneValeurs.nom = $("#profil-Nom").html();
-	ancienneValeurs.prenom = $("#profil-Prenom").html();
-	ancienneValeurs.email = $("#profil-Email").html();
-	
-	$("#profil-Nom").html("<input type=\"text\" name=\"Nom\" class=\"form-control\" value=\"" + ancienneValeurs.nom + "\" />");
-	$("#profil-Prenom").html("<input type=\"text\" name=\"Prenom\" class=\"form-control\" value=\"" + ancienneValeurs.prenom + "\" />");
-	$("#profil-Email").html("<input type=\"email\" name=\"Email\" class=\"form-control\" value=\"" + ancienneValeurs.email + "\" />");
-	
-	$("#button-cancel").click(onClicModifCancel);
-}
+$("#modifprofil").click(onClicModifProfil);
 
 function onClicModifCancel(e) {
-	//je remplace les formulaire par les ancienne valeur
-	$("#control-modifprofil").html("<h6 class=\"text-left\">Commande Utilisateur:</h6>"
-								 + "<div class=\"btn-group\" role=\"group\">"
-								 + "	<button class=\"btn btn-info\" id=\"button-modifprofil\" type=\"button\">Modifier Infos</button>"
-								 + "	<button class=\"btn btn-info\" id=\"button-modifpasswd\" type=\"button\" data-toggle=\"modal\" data-target=\"#modifpasswd\">Modifier Mot de passe</button>"
-								 + "</div>");
+	$("#control-modifprofil").html(
+		"<button type=\"button\" class=\"btn btn-outline-info w-100\" data-toggle=\"modal\" data-target=\"#modifpasswd\">Modifier le mot de passe</button>"+
+		"<button type=\"button\" class=\"btn btn-outline-dark w-100\" id=\"modifprofil\">Modifier le profil</button>"
+	);
 	
 	$("#profil-Nom").html(ancienneValeurs.nom);
 	$("#profil-Prenom").html(ancienneValeurs.prenom);
-	$("#profil-Email").html(ancienneValeurs.email);
+	$("#profil-Promo").html(ancienneValeurs.promo);
+	$("#profil-Campus").html(ancienneValeurs.campus);
 	
-	$("#button-modifprofil").click(onClicModifProfil); //je definie l'action executer quand on clique sur l'element avec l'id button-modifprofil que j'ai rajouter avec js
+	$("#modifprofil").click(onClicModifProfil);
+}
+
+function onClicModifProfil(e) {
+	$("#control-modifprofil").html(
+		"<button type=\"button\" class=\"btn btn-outline-dark w-100\" id=\"button-cancel\">Annuler</button>"+
+		"<button type=\"submit\" class=\"btn btn-outline-info w-100\"> Sauvegarder </button>"
+	);
+
+	ancienneValeurs.nom = $("#profil-Nom").html();
+	ancienneValeurs.prenom = $("#profil-Prenom").html();
+	ancienneValeurs.promo = $("#profil-Promo").html();
+	ancienneValeurs.campus = $("#profil-Campus").html();
+	
+	$("#profil-Nom").html("<input type=\"text\" class=\"form-control\" value=\"" + ancienneValeurs.nom + "\" />");
+	$("#profil-Prenom").html("<input type=\"text\" class=\"form-control\" value=\"" + ancienneValeurs.prenom + "\" />");
+	$("#profil-Promo").html("<input type=\"text\" class=\"form-control\" value=\"" + ancienneValeurs.promo + "\" />");
+	$("#profil-Campus").html("<input type=\"text\" class=\"form-control\" value=\"" + ancienneValeurs.campus + "\" />");
+	
+	$("#button-cancel").click(onClicModifCancel);
 }
 
 $("#deconnexion").click(function(e) {
@@ -139,6 +141,59 @@ $("#avatar").on('change', function(e) {
 		processData: false,
 		contentType: false,
 	}).done(function(res){
+		if(res.result != undefined) {
+			if(res.result) {
+				document.location.reload();
+			} else {
+				$("#error-message").html(res.error);
+				$("#modal-error").modal("show");
+			}
+		}
+	});
+});
+
+$("#modifprofil-form").submit(function(e){
+	e.preventDefault();
+	
+	$.post({
+		url: baseWebPath,
+		data: {
+			protocole: "modif-profil",
+			email: $("#profil-Email").html(),
+			nom: $("#profil-Nom input").val(),
+			prenom: $("#profil-Prenom input").val(), 
+			promo: $("#profil-Promo input").val(),
+			campus: $("#profil-Campus input").val()
+		},
+		dataType: "json"
+	}).done(function(res) {
+		console.log(res);
+		if(res.result != undefined) {
+			if(res.result) {
+				document.location.reload();
+			} else {
+				$("#error-message").html(res.error);
+				$("#modal-error").modal("show");
+			}
+		}
+	});
+});
+
+$("#modifpasswd-form").submit(function(e){
+	e.preventDefault();
+
+	$.post({
+		url: "/",
+		data: {
+			protocole: "modif-passwd",
+			passwd: $("#modif-passwd").val(),
+			confpasswd: $("#modif-confpasswd").val(),
+			lastpasswd: $("#modif-lastpasswd").val(),
+			email: $("#profil-Email").html()
+		},
+		dataType: "json"
+	}).done(function(res) {
+		console.log(res);
 		if(res.result != undefined) {
 			if(res.result) {
 				document.location.reload();

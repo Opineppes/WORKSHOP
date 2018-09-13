@@ -17,6 +17,10 @@
 				} else if($user != null){
 					if($protocole == "modif-avatar") {
 						return PROTOCOLE::proto_modif_image();
+					} else if($protocole == "modif-profil") {
+						return PROTOCOLE::proto_modif_profil();
+					} else if($protocole == "modif-passwd") {
+						return PROTOCOLE::proto_modif_passwd();
 					}
 				}
 			}
@@ -58,27 +62,34 @@
 			if(PROTOCOLE::verif_presence_args($_POST, array("email", "mot_de_passe", "verif_mot_de_passe", "nom", "prenom", "annee"))) {
 				if(PROTOCOLE::verif_empty_args($_POST, array("email", "mot_de_passe", "verif_mot_de_passe", "nom", "prenom", "annee"))) {
 					
-					if(!$table_utilisateur->exist(array("email"=>$_POST["email"]))) {
-						if(md5($_POST['mot_de_passe']) == md5($_POST['verif_mot_de_passe']) ) {
-							$table_utilisateur->create(array(
-								":email" => $_POST["email"],
-								":mdp" => md5($_POST["mot_de_passe"]),
-								":nom" => $_POST["nom"],
-								":prenom" => $_POST["prenom"],
-								":annee" => $_POST["annee"]
-							));
+					if(filter_var($_POST['Email'], FILTER_VALIDATE_EMAIL)) {
+						
+						if(!$table_utilisateur->exist(array("email"=>$_POST["email"]))) {
 							
-							$_SESSION['connect'] = true;
-							$_SESSION['email'] = $_POST["email"];
-							
-							return "{\"result\": true}";
+							if(md5($_POST['mot_de_passe']) == md5($_POST['verif_mot_de_passe']) ) {
+								
+								$table_utilisateur->create(array(
+									":email" => $_POST["email"],
+									":mdp" => md5($_POST["mot_de_passe"]),
+									":nom" => $_POST["nom"],
+									":prenom" => $_POST["prenom"],
+									":annee" => $_POST["annee"]
+								));
+								
+								$_SESSION['connect'] = true;
+								$_SESSION['email'] = $_POST["email"];
+								
+								return "{\"result\": true}";
+								
+							} else {
+								return "{\"result\": false, \"error\": \"Les deux mot deux passe ne sont pas identiques.\"}";
+							}
 						} else {
-							return "{\"result\": false, \"error\": \"Les deux mot deux passe ne sont pas identiques.\"}";
+							return "{\"result\": false, \"error\": \"Email déjà utilisée.\"}";
 						}
 					} else {
-						return "{\"result\": false, \"error\": \"Email déjà utilisée.\"}";
+						return "{\"result\": false, \"error\": \"Veuillez saisir une adresse mail valide.\"}";
 					}
-					
 				} else {
 					return "{\"result\": false, \"error\": \"Certains champs du formulaire sont vide\"}";
 				}
@@ -93,7 +104,7 @@
 			global $user;
 			
 			//avatar: image, email: identifiant
-			if( isset($_FILES['avatar']) and isset($_POST['email']) ) {
+			if( isset($_FILES['avatar']) and isset($_POST['email']) and !empty($_POST['email']) ) {
 				$extensions_ok = array('png', 'gif', 'jpg', 'jpeg');
 				$taille_max = 5000000;
 				$dest_dossier = 'img/profils/';
@@ -121,6 +132,83 @@
 							return "{\"result\": true}";
 						}
 					}
+				}
+			} else {
+				return "{\"result\": false, \"error\": \"Une erreur s'est produite.\"}";
+			}
+		}
+		
+		public static function proto_modif_profil() {
+			global $table_utilisateur;
+				
+			global $user;
+			
+			if(PROTOCOLE::verif_presence_args($_POST, array("nom", "prenom", "email", "promo", "campus"))) {
+				if(PROTOCOLE::verif_empty_args($_POST, array("nom", "prenom", "email", "promo", "campus"))) {
+					
+					if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+						
+						if($user['email'] == $_POST['email'] or $user['admin'] == "1") {
+							
+							if($table_utilisateur->exist(array("email"=>$_POST["email"]))) {
+
+								$table_utilisateur->update(
+									array(
+										":email"=>$_POST['email'],
+										":nom"=>$_POST['nom'],
+										":prenom"=>$_POST['prenom'],
+										":annee"=>$_POST['promo'],
+										":campus"=>$_POST['campus']
+									)
+								);
+								
+								return "{\"result\": true}";
+							}
+						}
+						
+					} else {
+						return "{\"result\": false, \"error\": \"Veuillez saisir une adresse mail valide.\"}";
+					}
+					
+				} else {
+					return "{\"result\": false, \"error\": \"Certains champs du formulaire sont vide\"}";
+				}
+			} else {
+				return "{\"result\": false, \"error\": \"Une erreur s'est produite.\"}";
+			}
+		}
+		
+		public static function proto_modif_passwd() {
+			global $table_utilisateur;
+			
+			global $user;
+			
+			if(PROTOCOLE::verif_presence_args($_POST, array("passwd", "confpasswd", "email"))) {
+				if(PROTOCOLE::verif_empty_args($_POST, array("passwd", "confpasswd", "email"))) {
+
+					$passwd = md5($_POST['passwd']);
+					$confpasswd = md5($_POST['confpasswd']);
+					
+					if($passwd == $confpasswd) 
+					{
+						if($user['admin'] == "0" and isset($_POST['lastpasswd'])) {
+							if($table_utilisateur->valid(array("email"=>$_POST['email'], "mdp"=>md5($_POST['lastpasswd'])))) {
+								$table_utilisateur->update_passwd(array("email"=>$_POST['email'], "mdp"=>$passwd ));
+								return "{\"result\": true}";
+							} else {
+								return "{\"result\": false, \"error\": \"L'ancien mot de passe n'est pas correct.\"}";
+							}
+						} else if($user['admin'] == "1") {
+							$table_utilisateur->update_passwd(array("email"=>$_POST['email'], "mdp"=>$passwd ));
+							return "{\"result\": true}";
+						} else {
+							return "{\"result\": false, \"error\": \"Une erreur s'est produite.\"}";
+						}
+					} else {
+						return "{\"result\": false, \"error\": \"Les deux mots de passe ne correspondent pas.\"}";
+					}
+				} else {
+					return "{\"result\": false, \"error\": \"Certains champs du formulaire sont vide\"}";
 				}
 			} else {
 				return "{\"result\": false, \"error\": \"Une erreur s'est produite.\"}";

@@ -1,44 +1,30 @@
 ﻿========PHP=======
 
 Global:
-	pouvoir commenter les articles
 
 Rubriques:
-	automatiser l'affichage des annonces
 	formulaire d'ajout d'une annonce
 	
 Profil:
-	affichage des annonce post�
-	modification du profil
 	suppresion d'annonce
 
 Header:
 
 Protocole:
-	~ajouter la securit� de saisie
+	~ajouter la securit� de saisie  -quentin
 
-	modification de profil
-
-	ajout d'annonce
-	modification d'annonce
-	suppression d'annonce
+	ajout d'annonce         -quentin
+	modification d'annonce  -quentin
+	suppression d'annonce   -quentin
+	enregistrement des commantaire - quentin
 
 =======SQL========
 
-creation d'une requete pour les annonce propre au rubrique
-creation d'une requete pour les annonce propre au personne
-
-creation d'une requete pour modifier le mot de passe
-creation d'une requete pour modifier l'image - > update_image
-
-
-
 =======HTML========
-
-Header:
-
 
 =======BUG========
 
 non connecté : modal ne disparait pas lors de la connexion/inscription depuis une rubrique
 changer "password" en "mot de passe" dans le formulaire de connection/inscritpion
+modal du changement de mdp ne reset pas après avoir changé de mdp
+mettre promo du changement de profil en liste déroulante

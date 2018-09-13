@@ -31,32 +31,41 @@
 ?>
 			</center>
         </div>
-        <div class="col-md-8"> 
-            <span class="row"> <span class="col-md-2"> <h5> Nom </h5> </span> <span class="col-md-10"> <?php echo $infos['nom']; ?> </span> </span>
-			<hr/>
-			<span class="row"> <span class="col-md-2"> <h5> Prenom </h5> </span> <span class="col-md-10"> <?php echo $infos['prenom']; ?> </span> </span>
-			<hr/>
-			<span class="row"> <span class="col-md-2"> <h5> Email </h5> </span> <span class="col-md-10"> <?php echo $infos['email']; ?> </span> </span>
-			<hr/>
-            <span class="row"> <span class="col-md-2"> <h5> Promo </h5> </span> <span class="col-md-10"> <?php echo $infos['annee']; ?> </span> </span>
-			<hr/>
+        <div class="col-md-8">
+			<form id="modifprofil-form">
+				<span class="row"> <span class="col-md-2"> <h5> Nom </h5> </span> <span class="col-md-10" id="profil-Nom"><?php echo $infos['nom']; ?></span> </span>
+				<hr/>
+				<span class="row"> <span class="col-md-2"> <h5> Prenom </h5> </span> <span class="col-md-10" id="profil-Prenom"><?php echo $infos['prenom']; ?></span> </span>
+				<hr/>
+				<span class="row"> <span class="col-md-2"> <h5> Email </h5> </span> <span class="col-md-10" id="profil-Email"><?php echo $infos['email']; ?></span> </span>
+				<hr/>
+				<span class="row"> <span class="col-md-2"> <h5> Promo </h5> </span> <span class="col-md-10" id="profil-Promo"><?php echo $infos['annee']; ?></span> </span>
+				<hr/>
+				<span class="row"> <span class="col-md-2"> <h5> Campus </h5> </span> <span class="col-md-10" id="profil-Campus"><?php echo $infos['campus']; ?></span> </span>
+				<hr/>
+				<div class="btn-group w-100" id="control-modifprofil">
+					<button type="button" class="btn btn-outline-info w-100" data-toggle="modal" data-target="#modifpasswd">Modifier le mot de passe</button>
+					<button type="button" class="btn btn-outline-dark w-100" id="modifprofil">Modifier le profil</button>
+				</div>
+			</form>
         </div>
     </div>
     <hr/>
     <h1> Posts récents de <?php echo $infos['prenom'] . " " . $infos['nom']; ?> </h1>
     <hr/>
 
-	<?php 
-	$listArticles =$table_article ->getAllByUser (array("emailUtilisateur"=>$infos['email']));
+<?php 
+	$listArticles = $table_article->getAllByUser(array("emailUtilisateur"=>$infos['email']));
 	if(count($listArticles)!=0)
 	{
 		foreach($listArticles as $id=>$article)
 		{
 
 			echo '<div class="card w-95">'.
-				 '	<div class="card-body">'.
+				 '	<div class="card-header">'.
 				 '		<h3 class="class-title text-center"> '.$article['titre'].' </h3>'.
-				 '		<hr>'.
+				 '	</div>'.
+				 '	<div class="card-body">'.
 				 '		<p class="card-text">'.$article['infos'].'</p>'.
 				 '		<a href="#" class="btn btn-primary">Informations</a>'.
 				 '	</div>'.
@@ -70,6 +79,42 @@
 	} else {
 		echo 'Aucun article publié récemment';
 	}
-	?>
+?>
 
+</div>
+
+<div class="modal fade" id="modifpasswd" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form id="modifpasswd-form">
+				<div class="modal-header">
+					<h5 class="modal-title">Modifier Mot de Passe</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="modifpasswd-body">
+<?php
+		if($user['admin'] != "1") {
+			echo '	<div class="form-group">
+						<label for="modif-lastpasswd">Ancien Mot de passe</label>
+						<input type="password" class="form-control" id="modif-lastpasswd" name="lastpasswd" required />
+					</div>';
+		}
+?>
+					<div class="form-group">
+						<label for="modif-passwd">Nouveau Mot De Passe</label>
+						<input type="password" class="form-control" id="modif-passwd" name="passwd" required />
+					</div>
+					<div class="form-group">
+						<label for="modif-confpasswd">Confirmation Mot De Passe</label>
+						<input type="password" class="form-control" id="modif-confpasswd" name="confpasswd" required />
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" name="valider">Changer le mot de passe</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
