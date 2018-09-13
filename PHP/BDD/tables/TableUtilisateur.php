@@ -6,6 +6,7 @@ class TableUtilisateur extends Table {
 	protected $_exist;
 	protected $_change_image;
 	protected $_change_passd;
+	protected $_search;
 	
 	public function __construct()
 	{
@@ -17,6 +18,8 @@ class TableUtilisateur extends Table {
 		$this->_valid = "SELECT * FROM utilisateur WHERE email = :email and mdp = :mdp";
 		$this->_change_image= "UPDATE utilisateur SET image = :image WHERE email = :email";
 		$this->_change_passd = "UPDATE utilisateur SET mdp = :mdp WHERE email = :email";
+
+		$this->_search = "SELECT * FROM utilisateur WHERE email LIKE :test OR prenom LIKE :test OR nom LIKE :test OR annee LIKE :test OR campus LIKE :test";
 	}
 	
 	public function exist($args) {
@@ -49,6 +52,14 @@ class TableUtilisateur extends Table {
 		$req->execute($args);
 		
 		return $req->rowCount();
+	}
+
+	public function search($args) {
+		$req = BDD::getBDD()->prepare($this->_search);
+			
+		$req->execute($args);
+		
+		return $req->fetchAll();
 	}
 }
 
