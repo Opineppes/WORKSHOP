@@ -12,6 +12,19 @@ $rubrique = $table_rubrique->selectOne(array("nomRubrique"=>$_GET['rubrique']));
         <?php echo '<img src=" '.$baseWebPath . $rubrique['image'] . ' " style="max-width:100px" alt="image_rubrique">'; ?>
     </div>
 </div>
+<form method="get" action="<?php echo $baseWebPath; ?>">
+    <div class="input-group mb-3">
+    
+        <input type="hidden" value="rubrique" name="page"/>
+        <input type="hidden" value="<?php echo $rubrique['nomRubrique']; ?>" name="rubrique"/>
+        
+        <input type="text" class="form-control" name="search" placeholder="Ville, activitée..." aria-label="recherche" aria-describedby="button-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-outline-dark" type="submit" id="button-addon2">Chercher</button>
+        </div>
+    
+    </div>
+</form>
 <hr>
 <div class="d-flex justify-content-center">
     <button class="btn btn-outline-dark w-75" data-toggle="modal" data-target="#rubrique">Ajouter une annonce</button>
@@ -45,41 +58,85 @@ $rubrique = $table_rubrique->selectOne(array("nomRubrique"=>$_GET['rubrique']));
 </div>
 <hr>
 
+
+<table class="table table-hover">
+    <tbody>
 <?php
 
 
-$listArticles =$table_article ->getAllByRubrique (array("nomRubrique"=>$rubrique['nomRubrique']));
+if(isset($_GET['search'])) {
 
-if(count($listArticles)!=0)
-{
-	foreach($listArticles as $id=>$article)
-	{
+    $listArticles = $table_article ->search(array("test"=>"%".$_GET['search']."%", "nomRubrique"=>$rubrique['nomRubrique']) );
+    if(count($listArticles)!=0)
+    {
+        foreach($listArticles as $id=>$article)
+        {
 
-        $utilisateur = $table_utilisateur->selectOne(array("email"=>$article['emailUtilisateur']));
-        $listeCommentaire = $table_commentaire ->selectAllByArticle(array("idArticle"=>$article['id']));
+            $utilisateur = $table_utilisateur->selectOne(array("email"=>$article['emailUtilisateur']));
+            $listeCommentaire = $table_commentaire ->selectAllByArticle(array("idArticle"=>$article['id']));
 
-        echo '<div class="card">'.
-             '   <div class="card-header">'.
-             '      <h3 class="class-title text-center"> ' . $article['titre'] . ' </h3>'.
-             '   </div>'.
-             '   <div class="card-body">'.
-             '      <p class="card-text"> ' . $article['infos'] . ' </p>'.
-             '      <a href="'.$baseWebPath.'?page=annonce&annonce='. $article['id'] .'" class="btn btn-sm btn-outline-info">Informations</a>'.
-             '   </div>'.
-             '   <div class="card-footer">'.
-             '      <div class="row align-items-center">'.
-             '          <p class="card-text">'.
-             '          <div class="col-auto mr-auto"> Posté par ' . $utilisateur['prenom'] . ', le ' . $article['dateInscriptionFormatee'] . ' </div>'.
-             '          <div class="col-auto"> '; echo count($listeCommentaire); echo ' commentaire(s) </div>'.
-             '          </p>'.
-             '      </div> '.    
-             '   </div> '.
-             '</div>'.
-             '<br>';
+            //'       <a href=' .$baseWebPath. '?page=profil&profil='. $user['email'] .' class="lien_profil"> '.
+            echo '<div class="card">'.
+                '   <div class="card-header">'.
+                '      <h3 class="class-title text-center"> ' . $article['titre'] . ' </h3>'.
+                '   </div>'.
+                '   <div class="card-body">'.
+                '      <p class="card-text"> ' . $article['infos'] . ' </p>'.
+                '      <a href="'.$baseWebPath.'?page=annonce&annonce='. $article['id'] .'" class="btn btn-sm btn-outline-info">Informations</a>'.
+                '   </div>'.
+                '   <div class="card-footer">'.
+                '      <div class="row align-items-center">'.
+                '          <p class="card-text">'.
+                '          <div class="col-auto mr-auto"> Posté par ' . $utilisateur['prenom'] . ', le ' . $article['dateInscriptionFormatee'] . ' </div>'.
+                '          <div class="col-auto"> '; echo count($listeCommentaire); echo ' commentaire(s) </div>'.
+                '          </p>'.
+                '      </div> '.    
+                '   </div> '.
+                '</div>'.
+                '<br>';
+    
+        }
+    } else {
+        echo 'Aucun article ne correspond à la recherche';
+    }
 
-	}
 } else {
-	echo 'Aucun article publié récemment';
-}
 
+    $listArticles =$table_article ->getAllByRubrique (array("nomRubrique"=>$rubrique['nomRubrique']));
+
+    if(count($listArticles)!=0)
+    {
+        foreach($listArticles as $id=>$article)
+        {
+
+            $utilisateur = $table_utilisateur->selectOne(array("email"=>$article['emailUtilisateur']));
+            $listeCommentaire = $table_commentaire ->selectAllByArticle(array("idArticle"=>$article['id']));
+
+            echo '<div class="card">'.
+                '   <div class="card-header">'.
+                '      <h3 class="class-title text-center"> ' . $article['titre'] . ' </h3>'.
+                '   </div>'.
+                '   <div class="card-body">'.
+                '      <p class="card-text"> ' . $article['infos'] . ' </p>'.
+                '      <a href="'.$baseWebPath.'?page=annonce&annonce='. $article['id'] .'" class="btn btn-sm btn-outline-info">Informations</a>'.
+                '   </div>'.
+                '   <div class="card-footer">'.
+                '      <div class="row align-items-center">'.
+                '          <p class="card-text">'.
+                '          <div class="col-auto mr-auto"> Posté par ' . $utilisateur['prenom'] . ', le ' . $article['dateInscriptionFormatee'] . ' </div>'.
+                '          <div class="col-auto"> '; echo count($listeCommentaire); echo ' commentaire(s) </div>'.
+                '          </p>'.
+                '      </div> '.    
+                '   </div> '.
+                '</div>'.
+                '<br>';
+
+        }
+    } else {
+        echo 'Aucun article publié récemment';
+    }
+}
 ?>
+
+    </tbody>
+</table>
