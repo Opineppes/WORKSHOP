@@ -29,6 +29,7 @@ $rubrique = $table_rubrique->selectOne(array("nomRubrique"=>$_GET['rubrique']));
             <div class="modal-body" id="article-body">
                 <div class="form-group">
                     <label for="titre">Titre</label>
+                    <input type="text" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
@@ -58,11 +59,12 @@ if(count($listArticles)!=0)
         $listeCommentaire = $table_commentaire ->selectAllByArticle(array("idArticle"=>$article['id']));
 
         echo '<div class="card">'.
-             '   <div class="card-body">'.
+             '   <div class="card-header">'.
              '      <h3 class="class-title text-center"> ' . $article['titre'] . ' </h3>'.
-             '      <hr>'.
+             '   </div>'.
+             '   <div class="card-body">'.
              '      <p class="card-text"> ' . $article['infos'] . ' </p>'.
-             '      <a href="'.$baseWebPath.'?page=annonce&annonce='. $article['id'] .'" class="btn btn-primary">Informations</a>'.
+             '      <a href="'.$baseWebPath.'?page=annonce&annonce='. $article['id'] .'" class="btn btn-sm btn-outline-info">Informations</a>'.
              '   </div>'.
              '   <div class="card-footer">'.
              '      <div class="row align-items-center">'.
@@ -70,7 +72,7 @@ if(count($listArticles)!=0)
              '          <div class="col-auto mr-auto"> Posté par ' . $utilisateur['prenom'] . ', le ' . $article['dateInscriptionFormatee'] . ' </div>'.
              '          <div class="col-auto"> '; echo count($listeCommentaire); echo ' commentaire(s) </div>'.
              '          </p>'.
-             '       </div>'.
+             '      </div> '.    
              '   </div> '.
              '</div>'.
              '<br>';
