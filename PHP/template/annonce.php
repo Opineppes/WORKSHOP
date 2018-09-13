@@ -28,15 +28,16 @@ echo '
 <div>
     <div class="row align-items-center">
         <div class="col-auto mr-auto"> <h3 class="d-inline-block">Commentaires</h3> </div>
-        <div class="col-auto"> <?php echo count($listeCommentaire) .' commentaire(s)'; ?> </div>
+        <div class="col-auto"> <?php echo count($listeCommentaire); ?> commentaire(s)</div>
     </div>
     <hr>
-    <form action="">
+    <form id="form-commentaire">
         <div class="card ">
             <div class="input-group">
-                <input type="text" class="form-control mb" name="" id="">
+                <input type="text" class="form-control" placeholder="Votre commentaire..." id="commentaire"/>
+				<input type="hidden" id="article" value="<?php echo $article['id']; ?>"/>
                 <div class="input-group-append">
-                    <button class="btn btn-outline-dark">Commenter</button>
+                    <button type="submit" class="btn btn-outline-dark">Commenter</button>
                 </div>
             </div> 
         </div>

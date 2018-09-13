@@ -137,7 +137,6 @@ $("#inscription-form").submit(function(e) {
 		},
 		dataType: "json"
 	} ).done(function(res) {
-		console.log(res);
 		if(res.result != undefined) {
 			if(res.result) {
 				document.location = baseWebPath;
@@ -192,7 +191,6 @@ $("#modifprofil-form").submit(function(e){
 		},
 		dataType: "json"
 	}).done(function(res) {
-		console.log(res);
 		if(res.result != undefined) {
 			if(res.result) {
 				document.location.reload();
@@ -219,7 +217,6 @@ $("#modifpasswd-form").submit(function(e){
 		},
 		dataType: "json"
 	}).done(function(res) {
-		console.log(res);
 		if(res.result != undefined) {
 			if(res.result) {
 				document.location.reload();
@@ -257,8 +254,6 @@ $("#article-form").submit(function(e) {
 		infos_article[id] = value;
 	}
 	
-	console.log(infos_article);
-	
 	$.post({
 		url: "/",
 		data: {
@@ -267,10 +262,9 @@ $("#article-form").submit(function(e) {
 			description: $("#description").val(),
 			infos: infos_article,
 			rubrique: $("#article-rubrique").val()
-		}//,
-		//dataType: "json"
+		},
+		dataType: "json"
 	}).done(function(res) {
-		console.log(res);
 		if(res.result != undefined) {
 			if(res.result) {
 				document.location.reload();
@@ -282,3 +276,27 @@ $("#article-form").submit(function(e) {
 		}
 	});
 })
+
+$("#form-commentaire").submit(function(e) {
+	e.preventDefault();
+	
+	$.post({
+		url: "/",
+		data: {
+			protocole: "ajout-commentaire",
+			commentaire: $("#commentaire").val(),
+			article: $("#article").val()
+		},
+		dataType: "json"
+	}).done(function(res) {
+		if(res.result != undefined) {
+			if(res.result) {
+				document.location.reload();
+			} else {
+				$("#error-message").html(res.error);
+				$(".link-error").click(onClickLinkError);
+				$("#modal-error").modal("show");
+			}
+		}
+	});
+});
