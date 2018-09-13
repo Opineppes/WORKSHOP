@@ -26,7 +26,7 @@ if(isset($_GET['search'])) {
         foreach($listUser as $id=>$user)
         {
             //'       <a href=' .$baseWebPath. '?page=profil&profil='. $user['email'] .' class="lien_profil"> '.
-            echo"<tr class=\"lien_profil\" onclick=\"document.location = \\\"/workshopB2/\\\"\">".
+            echo"<tr class=\"lien_profil\" onclick=\"document.location='" .$baseWebPath. '?page=profil&profil='. $user['email'] . "';\">".
                 '   <td >'.
                 '        <center><img src="' .$baseWebPath. $user['image'] . '"  class="rounded-circle" width="100" height="100" alt="image_utilisateur"/></center>'.
                 '   </td>'.
@@ -51,7 +51,7 @@ if(isset($_GET['search'])) {
         foreach($listUser as $id=>$user)
         {
     
-            echo'<tr >'.
+            echo"<tr class=\"lien_profil\" onclick=\"document.location='" .$baseWebPath. '?page=profil&profil='. $user['email'] . "';\">".
                 '   <td >'.
                 '        <center><img src="' .$baseWebPath. $user['image'] . '"  class="rounded-circle" width="100" height="100" alt="image_utilisateur"/></center>'.
                 '   </td>'.
