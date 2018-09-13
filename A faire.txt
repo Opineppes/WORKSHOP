@@ -24,6 +24,5 @@ Protocole:
 
 =======BUG========
 
-non connecté : modal ne disparait pas lors de la connexion/inscription depuis une rubrique
-modal du changement de mdp ne reset pas après avoir changé de mdp
 mettre promo du changement de profil en liste déroulante
+ajouter campus à inscription

@@ -1,11 +1,7 @@
 <?php
 	$infos = $user;
 	if(isset($_GET['profil'])) {
-		if($table_utilisateur->exist(array("email"=>$_GET['profil']))) {
-			$infos = $table_utilisateur->selectOne(array("email"=>$_GET['profil']));
-		} else {
-			$_SESSION['error'] = "Utilisateur inconue.";
-		}
+		$infos = $table_utilisateur->selectOne(array("email"=>$_GET['profil']));
 	}
 
 ?>

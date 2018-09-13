@@ -1,4 +1,6 @@
-<?php  $rubriques = $table_rubrique->selectAll();  ?>
+<?php  
+	$rubriques = $table_rubrique->selectAll();  
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -22,16 +24,19 @@
 		</header>
 		
 		<div class="container" id="page-content">
-<?php include( "PHP/template/". $page .".php"); ?>
+<?php 
+	include( "PHP/template/". $page .".php"); 
+?>
 		</div>
 
 		<script type="text/javascript" src="<?php echo $baseWebPath; ?>js/jquery.js"></script>
 		<script type="text/javascript" src="<?php echo $baseWebPath; ?>js/bootstrap.js"></script>
 		<script type="text/javascript" src="<?php echo $baseWebPath; ?>js/script.js"></script>
-<?php 	
+<?php
 	if(isset($_SESSION['error'])) {
 		echo "<script>".
 			 "	$(\"#error-message\").html(\"". str_replace("\"", "\\\"", $_SESSION['error']) ."\");".
+			 "  $(\".link-error\").click(onClickLinkError);".
 			 "	$(\"#modal-error\").modal(\"show\");".
 			 "</script>";
 		unset($_SESSION['error']);
