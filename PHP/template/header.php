@@ -8,14 +8,17 @@
 	</button>
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active">
-				<a class="nav-link" href="<?php echo $baseWebPath; ?>">Accueil <span class="sr-only">(current)</span></a>
+			<li class="nav-item">
+				<a class="nav-link" href="<?php echo $baseWebPath; ?>">Accueil</a>
 			</li>
-		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#" id="rubriques" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			Rubriques
-			</a>
-			<div class="dropdown-menu" aria-labelledby="rubriques">
+			<li class="nav-item">
+				<a class="nav-link" href="<?php echo $baseWebPath; ?>?page=utilisateurs">Utilisateurs</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="rubriques" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Rubriques
+				</a>
+				<div class="dropdown-menu" aria-labelledby="rubriques">
 <?php
 
 	foreach($rubriques as $id=>$rubrique) {
@@ -23,8 +26,8 @@
 	}
 
 ?>
-			</div>
-		</li>
+				</div>
+			</li>
 		</ul>
 		
 		<ul class="navbar-nav">
@@ -42,6 +45,7 @@
 			 "</li>";
 	} else {
 		echo "<li class=\"nav-item\">".
+			 "<button type=\"button\" class=\"btn btn-outline-info\" data-toggle=\"modal\" data-target=\"#inscription-modal\">S'inscrire</button>".
 			 "<button type=\"button\" class=\"btn btn-outline-dark\" data-toggle=\"modal\" data-target=\"#connexion-modal\">Se connecter</button>".
 			 "</li>";
 	}
@@ -71,7 +75,6 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-info w-50" id="btn-inscription">S'inscrire</button>
 					<button type="submit" class="btn btn-outline-dark ml-auto w-50">Se connecter</button>
 				</div>
 			</form>
@@ -118,6 +121,13 @@
 							<option value="B3">B3</option>
 							<option value="I4">I4</option>
 							<option value="I5">I5</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="campus">Campus</label>
+						<select  class="form-control bxs-dark" id="campus" required>
+							<option value="Arras">Arras</option>
+							<option value="Lille">Lille</option>
 						</select>
 					</div>
 					

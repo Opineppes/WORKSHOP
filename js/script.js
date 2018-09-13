@@ -5,7 +5,7 @@ var ancienneValeurs = { //map pour stocker les ancienne valeur du profil et les 
 		campus: ""
 };
 
-var baseWebPath = "/workshopB2/";
+var baseWebPath = "/";
 
 $("#btn-inscription").click(function(e) {
 	$("#inscription-modal").modal("show");
@@ -115,7 +115,8 @@ $("#inscription-form").submit(function(e) {
 			verif_mot_de_passe: $("#valide-mot-de-passe").val(),
 			prenom: $("#prenom").val(),
 			nom: $("#nom").val(),
-			annee: $("#annee").val()
+			annee: $("#annee").val(),
+			campus: $("#campus").val()
 		},
 		dataType: "json"
 	} ).done(function(res) {

@@ -59,8 +59,8 @@
 		public static function proto_inscription() {
 			global $table_utilisateur;
 			
-			if(PROTOCOLE::verif_presence_args($_POST, array("email", "mot_de_passe", "verif_mot_de_passe", "nom", "prenom", "annee"))) {
-				if(PROTOCOLE::verif_empty_args($_POST, array("email", "mot_de_passe", "verif_mot_de_passe", "nom", "prenom", "annee"))) {
+			if(PROTOCOLE::verif_presence_args($_POST, array("email", "mot_de_passe", "verif_mot_de_passe", "nom", "prenom", "annee", "campus"))) {
+				if(PROTOCOLE::verif_empty_args($_POST, array("email", "mot_de_passe", "verif_mot_de_passe", "nom", "prenom", "annee", "campus"))) {
 					
 					if(filter_var($_POST['Email'], FILTER_VALIDATE_EMAIL)) {
 						
@@ -73,7 +73,8 @@
 									":mdp" => md5($_POST["mot_de_passe"]),
 									":nom" => $_POST["nom"],
 									":prenom" => $_POST["prenom"],
-									":annee" => $_POST["annee"]
+									":annee" => $_POST["annee"],
+									":campus"=> $_POST["campus"]
 								));
 								
 								$_SESSION['connect'] = true;
