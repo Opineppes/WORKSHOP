@@ -2,12 +2,12 @@
 
 Global:
 
-Rubriques:
+annonces:
+	afficher les informations
+	
 	
 Profil:
 	suppresion d'annonce
-
-Header:
 
 Protocole:
 	~ajouter la securit� de saisie  -quentin
@@ -18,8 +18,6 @@ Protocole:
 	suppression d'annonce   -quentin
 	supression d'utilisateur
 	supression commentaire
-
-	enregistrement des commantaire - quentin
 	
 
 =======SQL========
@@ -27,5 +25,3 @@ Protocole:
 =======HTML========
 
 =======BUG========
-bouton modif profil apparaissent pour un profil qui n'est pas le notre
-valeur de la recherche defini si dans le lien

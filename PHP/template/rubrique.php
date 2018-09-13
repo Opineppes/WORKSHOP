@@ -101,7 +101,7 @@ function generateForm($infos) {
 				<input type="hidden" value="rubrique" name="page"/>
 				<input type="hidden" value="<?php echo $rubrique['nomRubrique']; ?>" name="rubrique"/>
 				
-				<input type="text" class="form-control" name="search" placeholder="Ville, activitée..." aria-label="recherche" aria-describedby="button-addon2">
+				<input type="text" class="form-control" name="search" <?php if(isset($_GET['search'])) { echo "value=\"". $_GET['search'] ."\""; } ?>placeholder="Ville, activitée..." aria-label="recherche" aria-describedby="button-addon2">
 				<div class="input-group-append">
 					<button class="btn btn-outline-dark" type="submit" id="button-addon2">Chercher</button>
 				</div>

@@ -39,10 +39,14 @@
 				<hr/>
 				<span class="row"> <span class="col-md-2"> <h5> Campus </h5> </span> <span class="col-md-10" id="profil-Campus"><?php echo $infos['campus']; ?></span> </span>
 				<hr/>
-				<div class="btn-group w-100" id="control-modifprofil">
-					<button type="button" class="btn btn-outline-info w-100" data-toggle="modal" data-target="#modifpasswd">Modifier le mot de passe</button>
-					<button type="button" class="btn btn-outline-dark w-100" id="modifprofil">Modifier le profil</button>
-				</div>
+<?php
+	if($user['email'] == $infos['email'] or $user['admin'] == "1") {
+		echo	"<div class=\"btn-group w-100\" id=\"control-modifprofil\">".
+				"	<button type=\"button\" class=\"btn btn-outline-info w-100\" data-toggle=\"modal\" data-target=\"#modifpasswd\">Modifier le mot de passe</button>".
+				"	<button type=\"button\" class=\"btn btn-outline-dark w-100\" id=\"modifprofil\">Modifier le profil</button>".
+				"</div>";
+	}
+?>
 			</form>
         </div>
     </div>
