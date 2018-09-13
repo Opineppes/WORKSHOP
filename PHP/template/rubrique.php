@@ -23,7 +23,7 @@ function generateForm($infos) {
 						"<div class=\"input-group-prepend\">".
 						"<span class=\"input-group-text\">". $label ."</span>".
 						"</div>".
-						"<input type=\"text\" class=\"form-control bxs-dark\" id=\"". $args[1] ."\"/>".
+						"<input type=\"text\" placeholder=\"23 Rue du Dépot, 62000 Arras\" class=\"form-control bxs-dark\" id=\"". $args[1] ."\"/>".
 						"</div>";
 				break;
 			case "H":
@@ -39,7 +39,7 @@ function generateForm($infos) {
 						"<div class=\"input-group-prepend\">".
 						"<span class=\"input-group-text\">". $label ."</span>".
 						"</div>".
-						"<input type=\"text\" class=\"form-control bxs-dark\" id=\"". $args[1] ."\"/>".
+						"<input type=\"text\" placeholder=\"texte\"class=\"form-control bxs-dark\" id=\"". $args[1] ."\"/>".
 						"</div>";
 				break;
 		}
